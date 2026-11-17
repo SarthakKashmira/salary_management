@@ -6,6 +6,15 @@ const routes = {
     show: '/employees/:id',
     edit: '/employees/:id/edit',
   },
+  teamMembers: {
+    index: '/team-members',
+  },
+  departments: {
+    index: '/departments',
+  },
+  salaryReports: {
+    index: '/salary-reports',
+  },
   salaries: {
     index: '/salaries',
     new: '/salaries/new',

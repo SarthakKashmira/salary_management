@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "common/*": ["app/javascript/common/*"],
+      "components/*": ["app/javascript/components/*"],
+      "constants/*": ["app/javascript/constants/*"],
+      "translations/*": ["app/javascript/translations/*"]
+    },
+    "pretty": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "jsx": "preserve"
+  },
+  "exclude": ["**/node_modules", "**/.*/"],
+  "include": ["./app/javascript/**/*.js", "./app/javascript/**/*.jsx", "./**/*.d.ts"]
+}

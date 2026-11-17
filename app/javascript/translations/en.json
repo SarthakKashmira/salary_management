@@ -1,5 +1,40 @@
 {
   "app": {
     "name": "Salary Management"
+  },
+  "common": {
+    "comingSoon": "This section is not built yet."
+  },
+  "sidebar": {
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "open": "Open navigation",
+    "close": "Close navigation"
+  },
+  "nav": {
+    "employees": "Employees",
+    "teamMembers": "Team members",
+    "departments": "Departments",
+    "salaryReports": "Salary reports"
+  },
+  "employees": {
+    "title": "Employees",
+    "subtitle": "{{count}} employee in your organization",
+    "subtitle_other": "{{count}} employees in your organization",
+    "addEmployee": "Add employee",
+    "searchPlaceholder": "Search employees",
+    "empty": "No employees match your search.",
+    "columns": {
+      "employee": "Employee",
+      "employeeId": "Employee ID",
+      "department": "Department",
+      "designation": "Designation",
+      "joiningDate": "Joining date",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
   }
 }
