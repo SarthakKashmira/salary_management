@@ -331,6 +331,74 @@ Use `utils.js` for plain JavaScript utilities. Use `utils.jsx` only when the hel
 
 Do not put component-specific helper functions in the global `constants/index.js`.
 
+### API Calls and Data Fetching
+
+Components must never call `axios` directly and must never build URLs inline. Data access is layered:
+
+```text
+component  ->  hook (React Query)  ->  api module (axios)  ->  Rails
+```
+
+**1. API module — `app/apis/<resource>.js`**
+
+One module per resource, named in the singular. Each function performs a single request and returns the axios promise untouched. URLs are relative, because `app/apis/axios.js` already sets `axios.defaults.baseURL`. Export a single default object grouping the functions.
+
+```js
+import axios from "axios";
+
+const employeesUrl = "/employees";
+
+const fetchEmployees = params => axios.get(employeesUrl, { params });
+
+const employeeApi = { fetchEmployees };
+
+export default employeeApi;
+```
+
+Rules:
+
+- Do not unwrap `response.data` here; that belongs in the hook.
+- Do not call `toast` here; `app/apis/axios.js` interceptors already report success and failure.
+- Do not catch errors here; let them reach the interceptor and the caller.
+- Keep request shaping (params, payload, headers) in this layer.
+
+**2. Query keys — `app/javascript/constants/queryKeys.js`**
+
+Every cached resource needs a key declared in the shared `QUERY_KEYS` object. Never inline a raw string as a query key: a typo silently creates a second cache entry that invalidation will never reach.
+
+**3. Hook — `app/javascript/hooks/use<Resource>Api.js`**
+
+Hooks are the only place React Query is used. Name read hooks `useFetch<Resource>` and write hooks `useCreate/useUpdate/useDelete<Resource>`. Each hook:
+
+- builds its `queryKey` from `QUERY_KEYS` plus the params that vary the result,
+- unwraps `response.data` in `queryFn`,
+- accepts an `options` object and spreads it last so callers can override.
+
+Keep read hooks a thin wrapper around `useQuery`. Do not return an `invalidate` helper: anything that needs to refresh a query calls `useQueryClient` and invalidates by its `QUERY_KEYS` entry, which keeps invalidation at the call site that actually causes it.
+
+```js
+const useFetchEmployees = (params = {}, options = {}) =>
+  useQuery({
+    queryKey: [EMPLOYEES, params],
+    queryFn: async () => {
+      const { data } = await employeeApi.fetchEmployees(params);
+
+      return data;
+    },
+    ...options,
+  });
+```
+
+Mutations must invalidate every query key whose data they affect, so lists and counts stay correct after a write.
+
+**4. Component**
+
+Components call only the hook, and must handle its `isLoading`, `isError`, and empty states using the Ant Design components named in section 4.
+
+Do not duplicate a request across components; if two components need the same data, they call the same hook and share React Query's cache.
+
+**Response casing:** the Rails API returns `snake_case`. Decide the conversion point once for the project and apply it consistently. Do not convert ad hoc inside components.
+
 ### Child Component Naming
 
 Child components belonging to a parent component must have concise, generic names. Do not prefix child component names with the parent component's name.
@@ -584,6 +652,7 @@ Never hide dependency requirements inside ordinary implementation notes.
 9. Every component must consider responsive screen sizes.
 10. Reuse existing components and utilities wherever possible.
 11. Component-specific constants belong in that component's `constants.js`.
+11a. Components never call `axios` directly: requests live in `app/apis/<resource>.js`, React Query lives in `app/javascript/hooks/use<Resource>Api.js`, and query keys come from `constants/queryKeys.js`.
 12. Feature-local shared helpers belong in that feature's `utils.js` or `utils.jsx`.
 13. Helpers shared across components in different folders belong in `app/javascript/constants/index.js`.
 14. Child components must not repeat the parent component's name as a prefix.

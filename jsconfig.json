@@ -12,6 +12,7 @@
       "common/*": ["app/javascript/common/*"],
       "components/*": ["app/javascript/components/*"],
       "constants/*": ["app/javascript/constants/*"],
+      "hooks/*": ["app/javascript/hooks/*"],
       "translations/*": ["app/javascript/translations/*"],
       "utils/*": ["app/javascript/utils/*"]
     },
