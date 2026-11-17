@@ -50,7 +50,7 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
   }
 
   const brand = (showToggle) => (
-    <div className="flex min-h-14 items-center gap-2 px-4 py-2">
+    <div className="flex min-h-14 items-center gap-2 px-4 py-4">
       <img
         alt={t('app.name')}
         className="h-8 w-8 shrink-0 object-contain"

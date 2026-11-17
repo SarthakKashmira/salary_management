@@ -39,7 +39,7 @@ export default function Layout() {
           </Header>
         )}
 
-        <Content className="p-4 sm:p-6">
+        <Content className="p-4 pt-6 sm:p-6 sm:pt-10">
           <Outlet />
         </Content>
       </AntLayout>

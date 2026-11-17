@@ -6,7 +6,7 @@ module Api
 
     def index
       employees = Employees::FetchService.new(search_term: params[:search_term]).process
-      @employees = paginate(employees.includes(:country))
+      @employees = paginate(employees.includes(:country, salary: :currency))
     end
 
     def show

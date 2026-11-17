@@ -15,6 +15,8 @@ export const initialsOf = ({ firstName, lastName }) =>
 
 export const avatarColorOf = ({ id }) => AVATAR_COLORS[id % AVATAR_COLORS.length]
 
+export const formatAmount = (amount, symbol) => `${symbol}${Number(amount).toLocaleString()}`
+
 const placeholder = <Typography.Text type="secondary">—</Typography.Text>
 
 export const buildColumns = (t) => [
@@ -51,6 +53,12 @@ export const buildColumns = (t) => [
     key: 'designation',
     title: t('employees.columns.designation'),
     render: (designation) => designation ?? placeholder,
+  },
+  {
+    dataIndex: 'salary',
+    key: 'salary',
+    title: t('employees.columns.salary'),
+    render: (salary) => (salary ? formatAmount(salary.amount, salary.currency.symbol) : placeholder),
   },
   {
     dataIndex: 'joiningDate',

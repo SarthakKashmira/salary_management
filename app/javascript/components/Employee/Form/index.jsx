@@ -55,7 +55,7 @@ export default function EmployeeForm() {
   }
 
   return (
-    <div style={{ maxWidth: 720 }}>
+    <div>
       <Typography.Title level={3} style={{ marginBottom: 4, marginTop: 0 }}>
         {t('employees.form.title')}
       </Typography.Title>

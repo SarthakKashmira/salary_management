@@ -38,6 +38,7 @@
       "employeeId": "Employee ID",
       "department": "Department",
       "designation": "Designation",
+      "salary": "Salary",
       "joiningDate": "Joining date",
       "status": "Status"
     },
