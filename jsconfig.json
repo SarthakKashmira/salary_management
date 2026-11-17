@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
+      "assets/*": ["app/javascript/assets/*"],
       "common/*": ["app/javascript/common/*"],
       "components/*": ["app/javascript/components/*"],
       "constants/*": ["app/javascript/constants/*"],

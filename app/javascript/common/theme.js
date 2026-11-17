@@ -2,6 +2,8 @@
 export const COLORS = {
   green: '#1F7A53',
   greenSoft: '#E6F1EA',
+  red: '#B42318',
+  redSoft: '#FEE4E2',
   cream: '#FAF6EC',
   creamRaised: '#FFFDF7',
   white: '#FFFFFF',

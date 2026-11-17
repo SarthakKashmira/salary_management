@@ -2,7 +2,7 @@ import { Avatar, Empty, Flex, Table as AntTable, Tag, Typography } from 'antd'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 
-import { DATE_FORMAT } from '../constants'
+import { DATE_FORMAT, STATUS_STYLES } from '../constants'
 
 const fullNameOf = ({ firstName, lastName }) => [firstName, lastName].filter(Boolean).join(' ')
 
@@ -54,9 +54,7 @@ export default function Table({ employees }) {
       dataIndex: 'status',
       key: 'status',
       title: t('employees.columns.status'),
-      render: (status) => (
-        <Tag color={status === 'active' ? 'success' : 'default'}>{t(`employees.status.${status}`)}</Tag>
-      ),
+      render: (status) => <Tag style={STATUS_STYLES[status]}>{t(`employees.status.${status}`)}</Tag>,
     },
   ]
 

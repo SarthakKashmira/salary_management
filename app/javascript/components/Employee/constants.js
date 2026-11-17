@@ -1,3 +1,5 @@
+import { COLORS } from 'common/theme'
+
 // Placeholder rows until GET /api/employees exists - replace with a useQuery call
 // in index.jsx, keeping Header and Table presentational.
 export const EMPLOYEES = [
@@ -50,3 +52,9 @@ export const EMPLOYEES = [
 export const SEARCHABLE_FIELDS = ['firstName', 'lastName', 'email', 'employeeId', 'department']
 
 export const DATE_FORMAT = 'DD MMM YYYY'
+
+// Each status reads as text on a soft tint, outlined in the same colour as the text.
+export const STATUS_STYLES = {
+  active: { color: COLORS.green, background: COLORS.greenSoft, borderColor: COLORS.green },
+  inactive: { color: COLORS.red, background: COLORS.redSoft, borderColor: COLORS.red },
+}

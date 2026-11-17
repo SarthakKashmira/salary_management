@@ -10,6 +10,7 @@ import { Button, Drawer, Grid, Layout, Menu, theme, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import logo from 'assets/A-logo.webp'
 import routes from 'constants/routes'
 
 const { Sider } = Layout
@@ -49,15 +50,15 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
   }
 
   const brand = (showToggle) => (
-    <div className="flex h-14 items-center gap-2 px-4">
-      <span
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-sm font-bold"
-        style={{ background: token.colorPrimary, color: token.colorWhite, borderRadius: token.borderRadius }}
-      >
-        S
-      </span>
+    <div className="flex min-h-14 items-center gap-2 px-4 py-2">
+      <img
+        alt={t('app.name')}
+        className="h-8 w-8 shrink-0 object-contain"
+        src={logo}
+        style={{ borderRadius: token.borderRadius }}
+      />
       {!(isCollapsed && showToggle) && (
-        <Typography.Text className="flex-1 truncate" strong>
+        <Typography.Text className="min-w-0 flex-1 leading-tight" strong>
           {t('app.name')}
         </Typography.Text>
       )}
