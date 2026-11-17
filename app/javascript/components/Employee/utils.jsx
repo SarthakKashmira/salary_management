@@ -46,7 +46,7 @@ export const buildColumns = (t) => [
     dataIndex: 'department',
     key: 'department',
     title: t('employees.columns.department'),
-    render: (department) => department ?? placeholder,
+    render: (department) => department?.name ?? placeholder,
   },
   {
     dataIndex: 'designation',

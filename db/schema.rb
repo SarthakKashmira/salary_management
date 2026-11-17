@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_17_210220) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_17_212117) do
   create_table "countries", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
@@ -26,20 +26,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_210220) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "departments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_departments_on_code", unique: true
+    t.index ["name"], name: "index_departments_on_name", unique: true
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "employee_id", null: false
     t.string "first_name", null: false
     t.string "last_name"
     t.string "email", null: false
     t.string "phone"
-    t.string "department"
     t.string "designation"
     t.bigint "country_id", null: false
     t.date "joining_date", null: false
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "department_id"
     t.index ["country_id"], name: "index_employees_on_country_id"
+    t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["employee_id"], name: "index_employees_on_employee_id", unique: true
   end
@@ -68,6 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_210220) do
   end
 
   add_foreign_key "employees", "countries"
+  add_foreign_key "employees", "departments"
   add_foreign_key "salaries", "currencies"
   add_foreign_key "salaries", "employees"
 end

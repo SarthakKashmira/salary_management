@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import routes from 'constants/routes'
 import { useFetchCountries } from 'hooks/country'
 import { useFetchCurrencies } from 'hooks/currency'
+import { useFetchDepartments } from 'hooks/department'
 import { useCreateEmployee } from 'hooks/useEmployeeApi'
 
 import { INITIAL_VALUES, VALIDATION_SCHEMA } from './constants'
@@ -22,9 +23,11 @@ export default function EmployeeForm() {
 
   const { data: countries = [], isLoading: isCountriesLoading } = useFetchCountries()
   const { data: currencies = [], isLoading: isCurrenciesLoading } = useFetchCurrencies()
+  const { data: departments = [], isLoading: isDepartmentsLoading } = useFetchDepartments()
 
   const countryOptions = buildSelectOptions(countries)
   const currencyOptions = buildSelectOptions(currencies, ({ symbol, code }) => `${symbol} ${code}`)
+  const departmentOptions = buildSelectOptions(departments)
 
   const { mutate: createEmployee, isPending } = useCreateEmployee({
     onSuccess: () => {
@@ -107,8 +110,16 @@ export default function EmployeeForm() {
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item htmlFor="department" label={t('employees.form.fields.department')}>
-              <Input id="department" name="department" onBlur={handleBlur} onChange={handleChange} value={values.department} />
+            <Form.Item htmlFor="departmentId" label={t('employees.form.fields.department')}>
+              <Select
+                allowClear
+                id="departmentId"
+                {...selectFieldProps('departmentId')}
+                loading={isDepartmentsLoading}
+                options={departmentOptions}
+                placeholder={t('employees.form.placeholders.department')}
+                value={values.departmentId}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>

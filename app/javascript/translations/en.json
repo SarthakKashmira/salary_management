@@ -66,6 +66,7 @@
         "amount": "Amount"
       },
       "placeholders": {
+        "department": "Select a department",
         "country": "Select a country",
         "currency": "Select a currency"
       },

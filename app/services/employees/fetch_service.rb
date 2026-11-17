@@ -1,6 +1,14 @@
 module Employees
   class FetchService
-    SEARCHABLE_COLUMNS = %w[employee_id first_name last_name email phone department designation].freeze
+    SEARCHABLE_COLUMNS = %w[
+      employees.employee_id
+      employees.first_name
+      employees.last_name
+      employees.email
+      employees.phone
+      employees.designation
+      departments.name
+    ].freeze
 
     attr_reader :search_term
 
@@ -9,13 +17,13 @@ module Employees
     end
 
     def process
-      search_term.present? ? Employee.where(search_clause, term: search_pattern) : Employee.all
+      search_term.present? ? Employee.left_joins(:department).where(search_clause, term: search_pattern) : Employee.all
     end
 
     private
 
       def search_clause
-        SEARCHABLE_COLUMNS.map { |column| "LOWER(employees.#{column}) LIKE :term" }.join(" OR ")
+        SEARCHABLE_COLUMNS.map { |column| "LOWER(#{column}) LIKE :term" }.join(" OR ")
       end
 
       def search_pattern

@@ -7,7 +7,6 @@ json.extract! employee,
   :last_name,
   :email,
   :phone,
-  :department,
   :designation,
   :joining_date,
   :status,
@@ -18,4 +17,12 @@ json.country do
   json.id employee.country&.id
   json.name employee.country&.name
   json.code employee.country&.code
+end
+
+if employee.department
+  json.department do
+    json.extract! employee.department, :id, :name, :code
+  end
+else
+  json.department nil
 end

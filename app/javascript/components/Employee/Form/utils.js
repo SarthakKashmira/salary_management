@@ -17,7 +17,7 @@ export const buildEmployeePayload = (values) => ({
     lastName: values.lastName || null,
     email: values.email,
     phone: values.phone || null,
-    department: values.department || null,
+    departmentId: values.departmentId || null,
     designation: values.jobTitle || null,
     countryId: values.countryId,
     joiningDate: dayjs(values.joiningDate).format('YYYY-MM-DD'),

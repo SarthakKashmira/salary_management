@@ -77,7 +77,7 @@ export default function EmployeeShow() {
               <DetailRow icon={<MailOutlined />}>{employee.email}</DetailRow>
               <DetailRow icon={<PhoneOutlined />}>{employee.phone ?? '—'}</DetailRow>
               <DetailRow icon={<BankOutlined />}>
-                {[employee.department, employee.designation].filter(Boolean).join(' – ') || '—'}
+                {[employee.department?.name, employee.designation].filter(Boolean).join(' – ') || '—'}
               </DetailRow>
               <DetailRow icon={<GlobalOutlined />}>{employee.country?.name ?? '—'}</DetailRow>
             </Flex>

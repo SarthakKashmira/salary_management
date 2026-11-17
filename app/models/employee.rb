@@ -1,5 +1,6 @@
 class Employee < ApplicationRecord
   belongs_to :country
+  belongs_to :department, optional: true
   has_one :salary, dependent: :destroy
 
   enum :status, { active: "active", inactive: "inactive" }, default: :active
