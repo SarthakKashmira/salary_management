@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # JSON API consumed by the React frontend.
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
+    resources :employees, only: :index
   end
 
   # React Router owns client-side routing; Rails just serves the SPA shell
