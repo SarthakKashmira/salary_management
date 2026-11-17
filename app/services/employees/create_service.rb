@@ -12,7 +12,7 @@ module Employees
 
       ActiveRecord::Base.transaction do
         employee.save!
-        employee.salaries.create!(salary_params)
+        employee.create_salary!(salary_params)
       end
 
       employee

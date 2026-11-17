@@ -3,5 +3,5 @@
 json.partial! "api/employees/employee", employee: @employee
 
 json.salary do
-  json.extract! @salary, :id, :amount, :currency_id, :effective_from
+  json.partial! "api/employees/salary", salary: @salary
 end

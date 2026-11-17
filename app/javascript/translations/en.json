@@ -6,7 +6,8 @@
     "comingSoon": "This section is not built yet.",
     "cancel": "Cancel",
     "save": "Save",
-    "saveAndAddAnother": "Save and add another"
+    "saveAndAddAnother": "Save and add another",
+    "edit": "Edit"
   },
   "api": {
     "success": "Success",
@@ -68,6 +69,13 @@
         "currency": "Select a currency"
       },
       "createdSuccessfully": "Employee added successfully"
+    },
+    "show": {
+      "employeeDetails": "Employee details",
+      "salaryInformation": "Salary information",
+      "perAnnum": "per annum",
+      "effectiveFrom": "Effective from",
+      "noSalary": "No salary information has been added yet."
     }
   }
 }

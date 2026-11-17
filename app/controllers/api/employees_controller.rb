@@ -2,16 +2,20 @@ module Api
   class EmployeesController < BaseController
     include Paginatable
 
-    before_action :get_employee, only: [ :update, :destroy ]
+    before_action :get_employee, only: [ :show, :update, :destroy ]
 
     def index
       employees = Employees::FetchService.new(search_term: params[:search_term]).process
       @employees = paginate(employees.includes(:country))
     end
 
+    def show
+      @salary = @employee.salary
+    end
+
     def create
       @employee = Employees::CreateService.new(employee_params: employee_params, salary_params: salary_params).process
-      @salary = @employee.salaries.last
+      @salary = @employee.salary
     end
 
     def update
@@ -26,7 +30,7 @@ module Api
     private
 
       def get_employee
-        @employee = Employee.find(params[:id])
+        @employee = Employee.includes(:country).find(params[:id])
       end
 
       def employee_params

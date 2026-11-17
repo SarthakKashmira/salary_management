@@ -1,7 +1,7 @@
 module Paginatable
   extend ActiveSupport::Concern
 
-  DEFAULT_PAGE_SIZE = 30
+  DEFAULT_PAGE_SIZE = 25
 
   private
 

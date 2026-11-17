@@ -17,10 +17,22 @@ const useFetchEmployees = (params = {}, options = {}) =>
     ...options,
   })
 
+const useShowEmployee = (id, options = {}) =>
+  useQuery({
+    enabled: Boolean(id),
+    queryKey: [EMPLOYEES, id],
+    queryFn: async () => {
+      const { data } = await employeeApi.fetchEmployee(id)
+
+      return data
+    },
+    ...options,
+  })
+
 const useCreateEmployee = (options = {}) =>
   useMutationWithInvalidation(employeeApi.createEmployee, {
     keysToInvalidate: [[EMPLOYEES]],
     ...options,
   })
 
-export { useFetchEmployees, useCreateEmployee }
+export { useFetchEmployees, useShowEmployee, useCreateEmployee }
