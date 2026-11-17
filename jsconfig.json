@@ -7,11 +7,13 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
+      "apis/*": ["app/apis/*"],
       "assets/*": ["app/javascript/assets/*"],
       "common/*": ["app/javascript/common/*"],
       "components/*": ["app/javascript/components/*"],
       "constants/*": ["app/javascript/constants/*"],
-      "translations/*": ["app/javascript/translations/*"]
+      "translations/*": ["app/javascript/translations/*"],
+      "utils/*": ["app/javascript/utils/*"]
     },
     "pretty": true,
     "experimentalDecorators": true,
@@ -21,5 +23,10 @@
     "jsx": "preserve"
   },
   "exclude": ["**/node_modules", "**/.*/"],
-  "include": ["./app/javascript/**/*.js", "./app/javascript/**/*.jsx", "./**/*.d.ts"]
+  "include": [
+    "./app/javascript/**/*.js",
+    "./app/javascript/**/*.jsx",
+    "./app/apis/**/*.js",
+    "./**/*.d.ts"
+  ]
 }

@@ -5,6 +5,11 @@
   "common": {
     "comingSoon": "This section is not built yet."
   },
+  "api": {
+    "success": "Success",
+    "defaultError": "Something went wrong!",
+    "errorWithStatus": "{{status}}: {{reason}}"
+  },
   "sidebar": {
     "collapse": "Collapse sidebar",
     "expand": "Expand sidebar",
