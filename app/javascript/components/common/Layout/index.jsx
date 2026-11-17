@@ -28,7 +28,7 @@ export default function Layout() {
 
       <AntLayout>
         {!isDesktop && (
-          <Header className="flex items-center gap-3 px-4" style={{ background: '#fff', paddingInline: 16 }}>
+          <Header className="flex items-center gap-3" style={{ paddingInline: 16 }}>
             <Button
               aria-label={t('sidebar.open')}
               icon={<MenuOutlined />}

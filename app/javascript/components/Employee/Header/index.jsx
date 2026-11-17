@@ -1,9 +1,10 @@
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
-import { Button, Flex, Input, Typography } from 'antd'
+import { Button, Flex, Input, theme, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 export default function Header({ onSearchChange, searchTerm, total }) {
   const { t } = useTranslation()
+  const { token } = theme.useToken()
 
   return (
     <Flex align="flex-start" className="mb-6" gap="middle" justify="space-between" wrap="wrap">
@@ -20,7 +21,7 @@ export default function Header({ onSearchChange, searchTerm, total }) {
           aria-label={t('employees.searchPlaceholder')}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder={t('employees.searchPlaceholder')}
-          prefix={<SearchOutlined className="text-slate-400" />}
+          prefix={<SearchOutlined style={{ color: token.colorTextPlaceholder }} />}
           style={{ width: 240 }}
           value={searchTerm}
         />
