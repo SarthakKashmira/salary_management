@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Bash(bundle exec *)",
+      "Bash(RAILS_ENV=test bundle exec rails runner \"puts Rails.application.vault[:slack].inspect\")",
+      "Bash(bin/rails test *)"
+    ]
+  }
+}
