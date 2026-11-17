@@ -41,3 +41,6 @@ node_modules
 # https://vite.dev/guide/env-and-mode.html#env-files
 *.local
 
+# Claude Code runtime lock file (session process state, not project config)
+.claude/scheduled_tasks.lock
+
