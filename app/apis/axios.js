@@ -43,7 +43,8 @@ const handleErrorResponse = (axiosErrorObject) => {
     setTimeout(() => (window.location.href = '/'), 2000)
   }
 
-  const reason = response?.data?.error || axiosErrorObject.message || i18n.t('api.defaultError')
+  const reason =
+    response?.data?.errors?.join(', ') || response?.data?.error || axiosErrorObject.message || i18n.t('api.defaultError')
   toast.error(status ? i18n.t('api.errorWithStatus', { reason, status }) : reason)
 
   if (status === 423) window.location.href = '/'

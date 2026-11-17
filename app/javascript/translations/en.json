@@ -3,7 +3,10 @@
     "name": "ACME's salary management"
   },
   "common": {
-    "comingSoon": "This section is not built yet."
+    "comingSoon": "This section is not built yet.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saveAndAddAnother": "Save and add another"
   },
   "api": {
     "success": "Success",
@@ -40,6 +43,31 @@
     "status": {
       "active": "Active",
       "inactive": "Inactive"
+    },
+    "form": {
+      "title": "Add employee",
+      "subtitle": "Fill in the employee and salary details below.",
+      "employeeDetails": "Employee details",
+      "salaryDetails": "Salary details",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "employeeId": "Employee ID",
+        "jobTitle": "Job title",
+        "department": "Department",
+        "country": "Country",
+        "joiningDate": "Joining date",
+        "status": "Status",
+        "currency": "Currency",
+        "amount": "Amount"
+      },
+      "placeholders": {
+        "country": "Select a country",
+        "currency": "Select a currency"
+      },
+      "createdSuccessfully": "Employee added successfully"
     }
   }
 }

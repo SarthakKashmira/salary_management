@@ -1,5 +1,6 @@
 import Department from 'components/Department'
 import Employee from 'components/Employee'
+import EmployeeForm from 'components/Employee/Form'
 import SalaryReport from 'components/SalaryReport'
 import TeamMember from 'components/TeamMember'
 import routes from 'constants/routes'
@@ -12,6 +13,10 @@ const componentRoutes = [
   {
     path: routes.employees.index,
     component: Employee,
+  },
+  {
+    path: routes.employees.new,
+    component: EmployeeForm,
   },
   {
     path: routes.teamMembers.index,

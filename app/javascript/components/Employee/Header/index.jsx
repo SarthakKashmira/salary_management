@@ -1,10 +1,14 @@
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
 import { Button, Flex, Input, theme, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+
+import routes from 'constants/routes'
 
 export default function Header({ onSearchChange, searchTerm, total }) {
   const { t } = useTranslation()
   const { token } = theme.useToken()
+  const navigate = useNavigate()
 
   return (
     <Flex align="flex-start" className="mb-6" gap="middle" justify="space-between" wrap="wrap">
@@ -25,7 +29,7 @@ export default function Header({ onSearchChange, searchTerm, total }) {
           style={{ width: 240 }}
           value={searchTerm}
         />
-        <Button icon={<PlusOutlined />} type="primary">
+        <Button icon={<PlusOutlined />} onClick={() => navigate(routes.employees.new)} type="primary">
           {t('employees.addEmployee')}
         </Button>
       </Flex>

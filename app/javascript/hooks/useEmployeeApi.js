@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import employeeApi from 'apis/employee'
 import QUERY_KEYS from 'constants/queryKeys'
+import useMutationWithInvalidation from 'hooks/useMutationWithInvalidation'
 
 const { EMPLOYEES } = QUERY_KEYS
 
@@ -16,4 +17,10 @@ const useFetchEmployees = (params = {}, options = {}) =>
     ...options,
   })
 
-export { useFetchEmployees }
+const useCreateEmployee = (options = {}) =>
+  useMutationWithInvalidation(employeeApi.createEmployee, {
+    keysToInvalidate: [[EMPLOYEES]],
+    ...options,
+  })
+
+export { useFetchEmployees, useCreateEmployee }
