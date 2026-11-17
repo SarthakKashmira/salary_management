@@ -1,10 +1,13 @@
 import axios from 'axios'
+import { stringify } from 'qs'
 import { toast } from 'react-toastify'
 
 import i18n from 'common/i18n'
 import { getFromLocalStorage, setToLocalStorage } from 'utils/storage'
+import { preprocessForSerialization } from 'utils/url'
 
 axios.defaults.baseURL = '/api'
+axios.defaults.paramsSerializer = (params) => stringify(preprocessForSerialization(params))
 
 const setAuthHeaders = () => {
   axios.defaults.headers = {
@@ -25,7 +28,7 @@ const setAuthHeaders = () => {
 const handleSuccessResponse = (response) => {
   if (response) {
     response.success = response.status === 200
-    toast.success(i18n.t('api.success'))
+    if (response.data?.notice) toast.success(response.data.notice)
   }
 
   return response

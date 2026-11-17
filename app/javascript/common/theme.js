@@ -9,6 +9,8 @@ export const COLORS = {
   white: '#FFFFFF',
 }
 
+export const AVATAR_COLORS = ['#1F7A53', '#0F6E6E', '#2A5DA8', '#6D4AA6', '#8A5A1E', '#A33A5B', '#44546A']
+
 const theme = {
   token: {
     colorPrimary: COLORS.green,
