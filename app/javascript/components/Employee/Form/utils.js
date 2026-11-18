@@ -24,6 +24,8 @@ export const buildInitialValuesFromEmployee = (employee) => ({
   countryId: employee.country?.id,
   joiningDate: dayjs(employee.joiningDate),
   isActive: employee.status === 'active',
+  currencyId: employee.salary?.currency?.id,
+  amount: employee.salary?.amount ?? '',
 })
 
 const buildEmployeeAttributes = (values) =>
@@ -40,8 +42,7 @@ const buildEmployeeAttributes = (values) =>
     status: values.isActive ? 'active' : 'inactive',
   })
 
-// effective_from isn't a form field - it's set to today on every create, and
-// per the schema is only meant to move again when amount changes on an edit.
+// effective_from isn't a form field - it's set to today on every create.
 export const buildEmployeePayload = (values) => ({
   employee: buildEmployeeAttributes(values),
   salary: snakeCaseKeys({
@@ -51,8 +52,13 @@ export const buildEmployeePayload = (values) => ({
   }),
 })
 
-// Salary isn't editable from this form yet - the backend's update action only
-// accepts employee fields, so there's no salary key to send here.
+// No effective_from here - the backend moves it to today only when the amount
+// actually changes (or there was no salary yet); leaving it unsent means an
+// unchanged amount keeps its original effective date.
 export const buildEmployeeUpdatePayload = (values) => ({
   employee: buildEmployeeAttributes(values),
+  salary: snakeCaseKeys({
+    amount: values.amount,
+    currencyId: values.currencyId,
+  }),
 })

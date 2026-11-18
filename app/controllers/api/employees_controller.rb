@@ -19,7 +19,10 @@ module Api
     end
 
     def update
-      @employee.update!(employee_params)
+      @employee = Employees::UpdateService.new(
+        employee: @employee, employee_params: employee_params, salary_params: salary_params
+      ).process
+      @salary = @employee.salary
     end
 
     def destroy

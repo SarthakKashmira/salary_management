@@ -14,7 +14,7 @@ import { useFetchDepartments } from 'hooks/department'
 import { useCreateEmployee, useShowEmployee, useUpdateEmployee } from 'hooks/useEmployeeApi'
 import { buildUrl } from 'utils/url'
 
-import { EDIT_VALIDATION_SCHEMA, INITIAL_VALUES, VALIDATION_SCHEMA } from './constants'
+import { INITIAL_VALUES, VALIDATION_SCHEMA } from './constants'
 import {
   buildEmployeePayload,
   buildEmployeeUpdatePayload,
@@ -63,7 +63,7 @@ export default function EmployeeForm() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: isEdit ? (employee ? buildInitialValuesFromEmployee(employee) : {}) : INITIAL_VALUES,
-    validationSchema: isEdit ? EDIT_VALIDATION_SCHEMA : VALIDATION_SCHEMA,
+    validationSchema: VALIDATION_SCHEMA,
     onSubmit: (values) =>
       isEdit ? updateEmployee({ id, payload: buildEmployeeUpdatePayload(values) }) : createEmployee(buildEmployeePayload(values)),
   })
@@ -187,33 +187,29 @@ export default function EmployeeForm() {
           </Col>
         </Row>
 
-        {!isEdit && (
-          <>
-            <Divider titlePlacement="left">
-              {t('employees.form.salaryDetails')}
-            </Divider>
+        <Divider titlePlacement="left">
+          {t('employees.form.salaryDetails')}
+        </Divider>
 
-            <Row gutter={16}>
-              <Col span={12}>
-                <Form.Item {...fieldItemProps('currencyId', t('employees.form.fields.currency'))} required>
-                  <Select
-                    id="currencyId"
-                    {...selectFieldProps('currencyId')}
-                    loading={isCurrenciesLoading}
-                    options={currencyOptions}
-                    placeholder={t('employees.form.placeholders.currency')}
-                    value={values.currencyId}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item {...fieldItemProps('amount', t('employees.form.fields.amount'))} required>
-                  <Input id="amount" inputMode="decimal" name="amount" onBlur={handleBlur} onChange={handleChange} value={values.amount} />
-                </Form.Item>
-              </Col>
-            </Row>
-          </>
-        )}
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item {...fieldItemProps('currencyId', t('employees.form.fields.currency'))} required>
+              <Select
+                id="currencyId"
+                {...selectFieldProps('currencyId')}
+                loading={isCurrenciesLoading}
+                options={currencyOptions}
+                placeholder={t('employees.form.placeholders.currency')}
+                value={values.currencyId}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item {...fieldItemProps('amount', t('employees.form.fields.amount'))} required>
+              <Input id="amount" inputMode="decimal" name="amount" onBlur={handleBlur} onChange={handleChange} value={values.amount} />
+            </Form.Item>
+          </Col>
+        </Row>
 
         <Flex gap="small" justify="end">
           <Button onClick={() => navigate(cancelRoute)}>{t('common.cancel')}</Button>

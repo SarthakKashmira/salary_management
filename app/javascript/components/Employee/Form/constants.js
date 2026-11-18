@@ -16,7 +16,7 @@ export const INITIAL_VALUES = {
   amount: '',
 }
 
-const COMMON_SCHEMA_FIELDS = {
+export const VALIDATION_SCHEMA = Yup.object({
   firstName: Yup.string().trim().required('First name is required'),
   lastName: Yup.string().trim(),
   email: Yup.string().trim().email('Enter a valid email address').required('Email is required'),
@@ -27,14 +27,6 @@ const COMMON_SCHEMA_FIELDS = {
   countryId: Yup.number().required('Country is required'),
   joiningDate: Yup.date().typeError('Enter a valid date').required('Joining date is required'),
   isActive: Yup.boolean(),
-}
-
-// Salary is only collected on create - editing doesn't expose it yet, so those
-// fields have nothing to validate in edit mode.
-export const VALIDATION_SCHEMA = Yup.object({
-  ...COMMON_SCHEMA_FIELDS,
   currencyId: Yup.number().required('Currency is required'),
   amount: Yup.number().typeError('Enter a valid amount').positive('Amount must be greater than 0').required('Amount is required'),
 })
-
-export const EDIT_VALIDATION_SCHEMA = Yup.object(COMMON_SCHEMA_FIELDS)
