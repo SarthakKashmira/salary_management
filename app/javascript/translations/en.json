@@ -76,7 +76,12 @@
         "country": "Select a country",
         "currency": "Select a currency"
       },
-      "createdSuccessfully": "Employee added successfully"
+      "createdSuccessfully": "Employee added successfully",
+      "edit": {
+        "title": "Edit employee",
+        "subtitle": "Update the employee's details below.",
+        "updatedSuccessfully": "Employee updated successfully"
+      }
     },
     "show": {
       "employeeDetails": "Employee details",

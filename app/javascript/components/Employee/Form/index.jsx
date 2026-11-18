@@ -3,24 +3,35 @@ import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import Spinner from 'components/common/Spinner'
 import routes from 'constants/routes'
 import { useFetchCountries } from 'hooks/country'
 import { useFetchCurrencies } from 'hooks/currency'
 import { useFetchDepartments } from 'hooks/department'
-import { useCreateEmployee } from 'hooks/useEmployeeApi'
+import { useCreateEmployee, useShowEmployee, useUpdateEmployee } from 'hooks/useEmployeeApi'
+import { buildUrl } from 'utils/url'
 
-import { INITIAL_VALUES, VALIDATION_SCHEMA } from './constants'
-import { buildEmployeePayload, buildSelectOptions, getFieldStatus } from './utils'
+import { EDIT_VALIDATION_SCHEMA, INITIAL_VALUES, VALIDATION_SCHEMA } from './constants'
+import {
+  buildEmployeePayload,
+  buildEmployeeUpdatePayload,
+  buildInitialValuesFromEmployee,
+  buildSelectOptions,
+  getFieldStatus,
+} from './utils'
 
 export default function EmployeeForm() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { id } = useParams()
+  const isEdit = Boolean(id)
 
   const submitIntentRef = useRef("save")
 
+  const { data: employee, isLoading: isEmployeeLoading } = useShowEmployee(id)
   const { data: countries = [], isLoading: isCountriesLoading } = useFetchCountries()
   const { data: currencies = [], isLoading: isCurrenciesLoading } = useFetchCurrencies()
   const { data: departmentsData, isLoading: isDepartmentsLoading } = useFetchDepartments()
@@ -30,7 +41,7 @@ export default function EmployeeForm() {
   const currencyOptions = buildSelectOptions(currencies, ({ symbol, code }) => `${symbol} ${code}`)
   const departmentOptions = buildSelectOptions(departments)
 
-  const { mutate: createEmployee, isPending } = useCreateEmployee({
+  const { mutate: createEmployee, isPending: isCreating } = useCreateEmployee({
     onSuccess: () => {
       toast.success(t('employees.form.createdSuccessfully'))
 
@@ -42,10 +53,19 @@ export default function EmployeeForm() {
     },
   })
 
+  const { mutate: updateEmployee, isPending: isUpdating } = useUpdateEmployee({
+    onSuccess: () => {
+      toast.success(t('employees.form.edit.updatedSuccessfully'))
+      navigate(buildUrl(routes.employees.show, { id }))
+    },
+  })
+
   const formik = useFormik({
-    initialValues: INITIAL_VALUES,
-    validationSchema: VALIDATION_SCHEMA,
-    onSubmit: (values) => createEmployee(buildEmployeePayload(values)),
+    enableReinitialize: true,
+    initialValues: isEdit ? (employee ? buildInitialValuesFromEmployee(employee) : {}) : INITIAL_VALUES,
+    validationSchema: isEdit ? EDIT_VALIDATION_SCHEMA : VALIDATION_SCHEMA,
+    onSubmit: (values) =>
+      isEdit ? updateEmployee({ id, payload: buildEmployeeUpdatePayload(values) }) : createEmployee(buildEmployeePayload(values)),
   })
 
   const { handleBlur, handleChange, handleSubmit, setFieldTouched, setFieldValue, values } = formik
@@ -58,12 +78,17 @@ export default function EmployeeForm() {
     handleSubmit()
   }
 
+  if (isEdit && isEmployeeLoading) return <Spinner />
+
+  const isPending = isCreating || isUpdating
+  const cancelRoute = isEdit ? buildUrl(routes.employees.show, { id }) : routes.employees.index
+
   return (
     <div>
       <Typography.Title level={3} style={{ marginBottom: 4, marginTop: 0 }}>
-        {t('employees.form.title')}
+        {t(isEdit ? 'employees.form.edit.title' : 'employees.form.title')}
       </Typography.Title>
-      <Typography.Text type="secondary">{t('employees.form.subtitle')}</Typography.Text>
+      <Typography.Text type="secondary">{t(isEdit ? 'employees.form.edit.subtitle' : 'employees.form.subtitle')}</Typography.Text>
 
       <Form layout="vertical" onFinish={handleSubmit} style={{ marginTop: 24 }}>
         <Divider titlePlacement="left">
@@ -162,35 +187,41 @@ export default function EmployeeForm() {
           </Col>
         </Row>
 
-        <Divider titlePlacement="left">
-          {t('employees.form.salaryDetails')}
-        </Divider>
+        {!isEdit && (
+          <>
+            <Divider titlePlacement="left">
+              {t('employees.form.salaryDetails')}
+            </Divider>
 
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item {...fieldItemProps('currencyId', t('employees.form.fields.currency'))} required>
-              <Select
-                id="currencyId"
-                {...selectFieldProps('currencyId')}
-                loading={isCurrenciesLoading}
-                options={currencyOptions}
-                placeholder={t('employees.form.placeholders.currency')}
-                value={values.currencyId}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item {...fieldItemProps('amount', t('employees.form.fields.amount'))} required>
-              <Input id="amount" inputMode="decimal" name="amount" onBlur={handleBlur} onChange={handleChange} value={values.amount} />
-            </Form.Item>
-          </Col>
-        </Row>
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item {...fieldItemProps('currencyId', t('employees.form.fields.currency'))} required>
+                  <Select
+                    id="currencyId"
+                    {...selectFieldProps('currencyId')}
+                    loading={isCurrenciesLoading}
+                    options={currencyOptions}
+                    placeholder={t('employees.form.placeholders.currency')}
+                    value={values.currencyId}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item {...fieldItemProps('amount', t('employees.form.fields.amount'))} required>
+                  <Input id="amount" inputMode="decimal" name="amount" onBlur={handleBlur} onChange={handleChange} value={values.amount} />
+                </Form.Item>
+              </Col>
+            </Row>
+          </>
+        )}
 
         <Flex gap="small" justify="end">
-          <Button onClick={() => navigate(routes.employees.index)}>{t('common.cancel')}</Button>
-          <Button loading={isPending} onClick={handleSaveAndAddAnother}>
-            {t('common.saveAndAddAnother')}
-          </Button>
+          <Button onClick={() => navigate(cancelRoute)}>{t('common.cancel')}</Button>
+          {!isEdit && (
+            <Button loading={isPending} onClick={handleSaveAndAddAnother}>
+              {t('common.saveAndAddAnother')}
+            </Button>
+          )}
           <Button htmlType="submit" loading={isPending} onClick={() => (submitIntentRef.current = 'save')} type="primary">
             {t('common.save')}
           </Button>

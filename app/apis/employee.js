@@ -8,12 +8,15 @@ const fetchEmployee = (id) => axios.get(`${employeesUrl}/${id}`)
 
 const createEmployee = (payload) => axios.post(employeesUrl, payload)
 
+const updateEmployee = ({ id, payload }) => axios.put(`${employeesUrl}/${id}`, payload)
+
 const bulkDeleteEmployees = (ids) => axios.delete(`${employeesUrl}/bulk_destroy`, { data: { ids } })
 
 const employeeApi = {
   fetchEmployees,
   fetchEmployee,
   createEmployee,
+  updateEmployee,
   bulkDeleteEmployees,
 }
 

@@ -26,6 +26,10 @@ const componentRoutes = [
     component: EmployeeShow,
   },
   {
+    path: routes.employees.edit,
+    component: EmployeeForm,
+  },
+  {
     path: routes.teamMembers.index,
     component: TeamMember,
   },

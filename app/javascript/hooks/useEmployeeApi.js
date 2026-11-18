@@ -35,10 +35,16 @@ const useCreateEmployee = (options = {}) =>
     ...options,
   })
 
+const useUpdateEmployee = (options = {}) =>
+  useMutationWithInvalidation(employeeApi.updateEmployee, {
+    keysToInvalidate: [[EMPLOYEES]],
+    ...options,
+  })
+
 const useBulkDeleteEmployees = (options = {}) =>
   useMutationWithInvalidation(employeeApi.bulkDeleteEmployees, {
     keysToInvalidate: [[EMPLOYEES]],
     ...options,
   })
 
-export { useFetchEmployees, useShowEmployee, useCreateEmployee, useBulkDeleteEmployees }
+export { useFetchEmployees, useShowEmployee, useCreateEmployee, useUpdateEmployee, useBulkDeleteEmployees }
