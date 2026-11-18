@@ -79,5 +79,29 @@
       "effectiveFrom": "Effective from",
       "noSalary": "No salary information has been added yet."
     }
+  },
+  "departments": {
+    "title": "Departments",
+    "subtitle": "{{count}} department in your organization",
+    "subtitle_other": "{{count}} departments in your organization",
+    "addDepartment": "Add department",
+    "searchPlaceholder": "Search departments",
+    "empty": "No departments match your search.",
+    "columns": {
+      "name": "Name",
+      "description": "Description",
+      "code": "Code",
+      "createdAt": "Created at"
+    },
+    "form": {
+      "title": "Add department",
+      "subtitle": "Fill in the department details below.",
+      "fields": {
+        "name": "Name",
+        "code": "Code",
+        "description": "Description"
+      },
+      "createdSuccessfully": "Department added successfully"
+    }
   }
 }

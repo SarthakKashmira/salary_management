@@ -1,4 +1,5 @@
 import Department from 'components/Department'
+import DepartmentForm from 'components/Department/Form'
 import Employee from 'components/Employee'
 import EmployeeForm from 'components/Employee/Form'
 import EmployeeShow from 'components/Employee/Show'
@@ -30,6 +31,10 @@ const componentRoutes = [
   {
     path: routes.departments.index,
     component: Department,
+  },
+  {
+    path: routes.departments.new,
+    component: DepartmentForm,
   },
   {
     path: routes.salaryReports.index,

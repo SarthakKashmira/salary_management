@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 
 import { AVATAR_COLORS } from 'common/theme'
+import Placeholder from 'components/common/Placeholder'
 import routes from 'constants/routes'
 import { buildUrl } from 'utils/url'
 
@@ -16,8 +17,6 @@ export const initialsOf = ({ firstName, lastName }) =>
 export const avatarColorOf = ({ id }) => AVATAR_COLORS[id % AVATAR_COLORS.length]
 
 export const formatAmount = (amount, symbol) => `${symbol}${Number(amount).toLocaleString()}`
-
-const placeholder = <Typography.Text type="secondary">—</Typography.Text>
 
 export const buildColumns = (t) => [
   {
@@ -46,19 +45,19 @@ export const buildColumns = (t) => [
     dataIndex: 'department',
     key: 'department',
     title: t('employees.columns.department'),
-    render: (department) => department?.name ?? placeholder,
+    render: (department) => department?.name ?? <Placeholder />,
   },
   {
     dataIndex: 'designation',
     key: 'designation',
     title: t('employees.columns.designation'),
-    render: (designation) => designation ?? placeholder,
+    render: (designation) => designation ?? <Placeholder />,
   },
   {
     dataIndex: 'salary',
     key: 'salary',
     title: t('employees.columns.salary'),
-    render: (salary) => (salary ? formatAmount(salary.amount, salary.currency.symbol) : placeholder),
+    render: (salary) => (salary ? formatAmount(salary.amount, salary.currency.symbol) : <Placeholder />),
   },
   {
     dataIndex: 'joiningDate',

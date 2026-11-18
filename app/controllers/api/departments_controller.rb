@@ -1,9 +1,12 @@
 module Api
   class DepartmentsController < BaseController
+    include Paginatable
+
     before_action :get_department, only: [ :update, :destroy ]
 
     def index
-      @departments = Department.order(:name)
+      departments = Departments::FetchService.new(search_term: params[:search_term]).process
+      @departments = paginate(departments)
     end
 
     def create

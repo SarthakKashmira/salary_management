@@ -23,7 +23,8 @@ export default function EmployeeForm() {
 
   const { data: countries = [], isLoading: isCountriesLoading } = useFetchCountries()
   const { data: currencies = [], isLoading: isCurrenciesLoading } = useFetchCurrencies()
-  const { data: departments = [], isLoading: isDepartmentsLoading } = useFetchDepartments()
+  const { data: departmentsData, isLoading: isDepartmentsLoading } = useFetchDepartments()
+  const departments = departmentsData?.departments ?? []
 
   const countryOptions = buildSelectOptions(countries)
   const currencyOptions = buildSelectOptions(currencies, ({ symbol, code }) => `${symbol} ${code}`)

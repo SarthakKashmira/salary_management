@@ -2,16 +2,25 @@ import { useQuery } from '@tanstack/react-query'
 
 import departmentApi from 'apis/department'
 import QUERY_KEYS from 'constants/queryKeys'
+import useMutationWithInvalidation from 'hooks/useMutationWithInvalidation'
 
-const useFetchDepartments = (options = {}) =>
+const { DEPARTMENTS } = QUERY_KEYS
+
+const useFetchDepartments = (params = {}, options = {}) =>
   useQuery({
-    queryKey: [QUERY_KEYS.DEPARTMENTS],
+    queryKey: [DEPARTMENTS, params],
     queryFn: async () => {
-      const { data } = await departmentApi.fetchDepartments()
+      const { data } = await departmentApi.fetchDepartments(params)
 
       return data
     },
     ...options,
   })
 
-export { useFetchDepartments }
+const useCreateDepartment = (options = {}) =>
+  useMutationWithInvalidation(departmentApi.createDepartment, {
+    keysToInvalidate: [[DEPARTMENTS]],
+    ...options,
+  })
+
+export { useFetchDepartments, useCreateDepartment }

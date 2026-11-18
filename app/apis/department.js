@@ -2,10 +2,13 @@ import axios from 'axios'
 
 const departmentsUrl = '/departments'
 
-const fetchDepartments = () => axios.get(departmentsUrl)
+const fetchDepartments = (params) => axios.get(departmentsUrl, { params })
+
+const createDepartment = (payload) => axios.post(departmentsUrl, payload)
 
 const departmentApi = {
   fetchDepartments,
+  createDepartment,
 }
 
 export default departmentApi
