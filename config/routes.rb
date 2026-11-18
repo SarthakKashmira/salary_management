@@ -12,7 +12,11 @@ Rails.application.routes.draw do
         delete :bulk_destroy
       end
     end
-    resources :departments, only: [ :index, :create, :update, :destroy ]
+    resources :departments, only: [ :index, :create, :update, :destroy ] do
+      collection do
+        delete :bulk_destroy
+      end
+    end
     resources :users, only: [ :index, :create, :update, :destroy ]
     resources :countries, only: :index
     resources :currencies, only: :index

@@ -23,4 +23,10 @@ const useCreateDepartment = (options = {}) =>
     ...options,
   })
 
-export { useFetchDepartments, useCreateDepartment }
+const useBulkDeleteDepartments = (options = {}) =>
+  useMutationWithInvalidation(departmentApi.bulkDeleteDepartments, {
+    keysToInvalidate: [[DEPARTMENTS]],
+    ...options,
+  })
+
+export { useFetchDepartments, useCreateDepartment, useBulkDeleteDepartments }

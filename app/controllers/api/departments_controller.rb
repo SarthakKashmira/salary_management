@@ -22,10 +22,20 @@ module Api
       render_success(message: "Department deleted successfully")
     end
 
+    def bulk_destroy
+      result = Departments::BulkDestroyService.new(ids: bulk_destroy_ids).process
+      @deleted_count = result.deleted_count
+      @failed_departments = result.failed_departments
+    end
+
     private
 
       def get_department
         @department = Department.find(params[:id])
+      end
+
+      def bulk_destroy_ids
+        params.permit(ids: []).fetch(:ids, [])
       end
 
       def department_params
