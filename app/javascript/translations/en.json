@@ -36,7 +36,7 @@
     "subtitle_other": "{{count}} employees in your organization",
     "addEmployee": "Add employee",
     "searchPlaceholder": "Search employees",
-    "empty": "No employees match your search.",
+    "empty": "No employees found.",
     "columns": {
       "employee": "Employee",
       "employeeId": "Employee ID",
@@ -86,7 +86,7 @@
     "subtitle_other": "{{count}} departments in your organization",
     "addDepartment": "Add department",
     "searchPlaceholder": "Search departments",
-    "empty": "No departments match your search.",
+    "empty": "No departments found.",
     "columns": {
       "name": "Name",
       "description": "Description",
@@ -110,7 +110,7 @@
     "subtitle_other": "{{count}} team members in your organization",
     "addTeamMember": "Add team member",
     "searchPlaceholder": "Search team members",
-    "empty": "No team members match your search.",
+    "empty": "No team members found.",
     "columns": {
       "name": "Name",
       "email": "Email",

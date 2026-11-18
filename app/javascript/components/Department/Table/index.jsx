@@ -1,5 +1,8 @@
-import { Empty, Table as AntTable } from 'antd'
+import { Table as AntTable } from 'antd'
+import { isEmpty } from 'ramda'
 import { useTranslation } from 'react-i18next'
+
+import NoData from 'components/common/NoData'
 
 import { buildColumns } from '../utils'
 
@@ -7,11 +10,12 @@ export default function Table({ departments, pagination }) {
   const { t } = useTranslation()
   const { onChange, page, pageSize, totalCount } = pagination
 
+  if (isEmpty(departments)) return <NoData description={t('departments.empty')} />
+
   return (
     <AntTable
       columns={buildColumns(t)}
       dataSource={departments}
-      locale={{ emptyText: <Empty description={t('departments.empty')} /> }}
       pagination={{
         current: page,
         hideOnSinglePage: true,
