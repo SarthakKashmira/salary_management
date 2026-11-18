@@ -1,22 +1,46 @@
-import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
+import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
 import { Button, Flex, Input, theme, Typography } from 'antd'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
+import { COLORS } from 'common/theme'
+import DeleteModal from 'components/common/DeleteModal'
 import routes from 'constants/routes'
 
-export default function Header({ onSearchChange, searchTerm, total }) {
+export default function Header({ isBulkDeleting, onBulkDelete, onSearchChange, searchTerm, selectedCount, total }) {
   const { t } = useTranslation()
   const { token } = theme.useToken()
   const navigate = useNavigate()
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+  const handleConfirmDelete = () => {
+    onBulkDelete()
+    setIsDeleteModalOpen(false)
+  }
+
   return (
-    <Flex align="flex-start" className="mb-6" gap="middle" justify="space-between" wrap="wrap">
+    <Flex align="flex-start" gap="middle" justify="space-between" style={{ marginBottom: 20 }} wrap="wrap">
       <div>
         <Typography.Title level={3} style={{ marginBottom: 4, marginTop: 0 }}>
           {t('employees.title')}
         </Typography.Title>
-        <Typography.Text type="secondary">{t('employees.subtitle', { count: total })}</Typography.Text>
+        <Flex align="center" gap="small" wrap="wrap">
+          <Typography.Text type="secondary">{t('employees.subtitle', { count: total })}</Typography.Text>
+          {selectedCount > 0 && (
+            <Button
+              icon={<DeleteOutlined />}
+              loading={isBulkDeleting}
+              onClick={() => setIsDeleteModalOpen(true)}
+              size="small"
+              style={{ backgroundColor: COLORS.redMedium, borderColor: COLORS.redMedium }}
+              type="primary"
+            >
+              {t('employees.bulkDelete.button', { count: selectedCount })}
+            </Button>
+          )}
+        </Flex>
       </div>
 
       <Flex gap="small" wrap="wrap">
@@ -33,6 +57,15 @@ export default function Header({ onSearchChange, searchTerm, total }) {
           {t('employees.addEmployee')}
         </Button>
       </Flex>
+
+      <DeleteModal
+        confirmLoading={isBulkDeleting}
+        count={selectedCount}
+        entityName="employee"
+        onCancel={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        open={isDeleteModalOpen}
+      />
     </Flex>
   )
 }

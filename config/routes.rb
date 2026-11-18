@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   # JSON API consumed by the React frontend.
   namespace :api, defaults: { format: :json } do
-    resources :employees, only: [ :index, :show, :create, :update, :destroy ]
+    resources :employees, only: [ :index, :show, :create, :update, :destroy ] do
+      collection do
+        delete :bulk_destroy
+      end
+    end
     resources :departments, only: [ :index, :create, :update, :destroy ]
     resources :users, only: [ :index, :create, :update, :destroy ]
     resources :countries, only: :index

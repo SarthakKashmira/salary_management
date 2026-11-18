@@ -11,6 +11,12 @@
     "status": {
       "active": "Active",
       "inactive": "Inactive"
+    },
+    "delete": "Delete",
+    "proceed": "Proceed",
+    "deleteModal": {
+      "title": "Delete {{count}} {{entity}}",
+      "description": "Are you sure you want to delete {{count}} {{entity}}?"
     }
   },
   "api": {
@@ -78,6 +84,10 @@
       "perAnnum": "per annum",
       "effectiveFrom": "Effective from",
       "noSalary": "No salary information has been added yet."
+    },
+    "bulkDelete": {
+      "button": "Delete ({{count}})",
+      "success": "Employees deleted successfully"
     }
   },
   "departments": {

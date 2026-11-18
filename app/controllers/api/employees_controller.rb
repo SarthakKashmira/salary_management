@@ -27,7 +27,16 @@ module Api
       render_success(message: "Employee deleted successfully")
     end
 
+    def bulk_destroy
+      Employee.where(id: bulk_destroy_ids).destroy_all
+      render_success(message: "Employees deleted successfully")
+    end
+
     private
+
+      def bulk_destroy_ids
+        params.permit(ids: []).fetch(:ids, [])
+      end
 
       def get_employee
         @employee = Employee.includes(:country, :department).find(params[:id])

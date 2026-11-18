@@ -6,7 +6,7 @@ import NoData from 'components/common/NoData'
 
 import { buildColumns } from '../utils'
 
-export default function Table({ employees, pagination }) {
+export default function Table({ employees, onSelectionChange, pagination, selectedRowKeys }) {
   const { t } = useTranslation()
   const { onChange, page, pageSize, totalCount } = pagination
 
@@ -25,6 +25,7 @@ export default function Table({ employees, pagination }) {
         total: totalCount,
       }}
       rowKey="id"
+      rowSelection={{ onChange: onSelectionChange, selectedRowKeys }}
       scroll={{ x: 'max-content' }}
     />
   )

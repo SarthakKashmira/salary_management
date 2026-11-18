@@ -4,6 +4,7 @@ export const COLORS = {
   greenSoft: '#E6F1EA',
   red: '#B42318',
   redSoft: '#FEE4E2',
+  redMedium: '#E5484D',
   cream: '#FAF6EC',
   creamRaised: '#FFFDF7',
   white: '#FFFFFF',
