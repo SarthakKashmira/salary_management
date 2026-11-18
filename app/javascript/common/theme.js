@@ -11,6 +11,11 @@ export const COLORS = {
 
 export const AVATAR_COLORS = ['#1F7A53', '#0F6E6E', '#2A5DA8', '#6D4AA6', '#8A5A1E', '#A33A5B', '#44546A']
 
+export const STATUS_STYLES = {
+  active: { color: COLORS.green, background: COLORS.greenSoft, borderColor: COLORS.green },
+  inactive: { color: COLORS.red, background: COLORS.redSoft, borderColor: COLORS.red },
+}
+
 const theme = {
   token: {
     colorPrimary: COLORS.green,

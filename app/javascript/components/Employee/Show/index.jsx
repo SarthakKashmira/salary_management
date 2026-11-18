@@ -4,12 +4,13 @@ import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { STATUS_STYLES } from 'common/theme'
 import Spinner from 'components/common/Spinner'
 import routes from 'constants/routes'
 import { useShowEmployee } from 'hooks/useEmployeeApi'
 import { buildUrl } from 'utils/url'
 
-import { DATE_FORMAT, STATUS_STYLES } from '../constants'
+import { DATE_FORMAT } from '../constants'
 import { avatarColorOf, formatAmount, fullNameOf, initialsOf } from '../utils'
 
 const { useBreakpoint } = Grid
@@ -71,7 +72,7 @@ export default function EmployeeShow() {
                 <Typography.Title level={4} style={{ margin: 0 }}>
                   {fullNameOf(employee)}
                 </Typography.Title>
-                <Tag style={STATUS_STYLES[employee.status]}>{t(`employees.status.${employee.status}`)}</Tag>
+                <Tag style={STATUS_STYLES[employee.status]}>{t(`common.status.${employee.status}`)}</Tag>
               </Flex>
               <Typography.Text type="secondary">{employee.employeeId}</Typography.Text>
               <DetailRow icon={<MailOutlined />}>{employee.email}</DetailRow>

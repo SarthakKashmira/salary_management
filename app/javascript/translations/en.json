@@ -7,7 +7,11 @@
     "cancel": "Cancel",
     "save": "Save",
     "saveAndAddAnother": "Save and add another",
-    "edit": "Edit"
+    "edit": "Edit",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
   },
   "api": {
     "success": "Success",
@@ -41,10 +45,6 @@
       "salary": "Salary",
       "joiningDate": "Joining date",
       "status": "Status"
-    },
-    "status": {
-      "active": "Active",
-      "inactive": "Inactive"
     },
     "form": {
       "title": "Add employee",
@@ -102,6 +102,41 @@
         "description": "Description"
       },
       "createdSuccessfully": "Department added successfully"
+    }
+  },
+  "teamMembers": {
+    "title": "Team members",
+    "subtitle": "{{count}} team member in your organization",
+    "subtitle_other": "{{count}} team members in your organization",
+    "addTeamMember": "Add team member",
+    "searchPlaceholder": "Search team members",
+    "empty": "No team members match your search.",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "role": "Role",
+      "status": "Status"
+    },
+    "roles": {
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "form": {
+      "title": "Add team member",
+      "subtitle": "Fill in the team member's details below.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "role": "Role",
+        "status": "Status"
+      },
+      "placeholders": {
+        "role": "Select a role"
+      },
+      "createdSuccessfully": "Team member added successfully"
     }
   }
 }

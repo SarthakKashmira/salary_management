@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum :role, { admin: 0, hr_manager: 1, hr_executive: 2, hr_viewer: 3 }
+  enum :role, { admin: 0, member: 1 }
   enum :status, { active: 0, inactive: 1 }, default: :active
 
   validates :first_name, presence: true

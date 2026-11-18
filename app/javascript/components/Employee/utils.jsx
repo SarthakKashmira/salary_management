@@ -2,12 +2,12 @@ import { Avatar, Flex, Tag, Typography } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 
-import { AVATAR_COLORS } from 'common/theme'
+import { AVATAR_COLORS, STATUS_STYLES } from 'common/theme'
 import Placeholder from 'components/common/Placeholder'
 import routes from 'constants/routes'
 import { buildUrl } from 'utils/url'
 
-import { DATE_FORMAT, STATUS_STYLES } from './constants'
+import { DATE_FORMAT } from './constants'
 
 export const fullNameOf = ({ firstName, lastName }) => [firstName, lastName].filter(Boolean).join(' ')
 
@@ -69,6 +69,6 @@ export const buildColumns = (t) => [
     dataIndex: 'status',
     key: 'status',
     title: t('employees.columns.status'),
-    render: (status) => <Tag style={STATUS_STYLES[status]}>{t(`employees.status.${status}`)}</Tag>,
+    render: (status) => <Tag style={STATUS_STYLES[status]}>{t(`common.status.${status}`)}</Tag>,
   },
 ]

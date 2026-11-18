@@ -8,6 +8,7 @@ const routes = {
   },
   teamMembers: {
     index: '/team-members',
+    new: '/team-members/new',
   },
   departments: {
     index: '/departments',

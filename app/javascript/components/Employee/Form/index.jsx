@@ -154,9 +154,9 @@ export default function EmployeeForm() {
               <Switch
                 checked={values.isActive}
                 id="isActive"
-                checkedChildren={t('employees.status.active')}
+                checkedChildren={t('common.status.active')}
                 onChange={(checked) => setFieldValue('isActive', checked)}
-                unCheckedChildren={t('employees.status.inactive')}
+                unCheckedChildren={t('common.status.inactive')}
               />
             </Form.Item>
           </Col>

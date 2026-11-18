@@ -1,0 +1,38 @@
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Flex, Input, theme, Typography } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+
+import routes from 'constants/routes'
+
+export default function Header({ onSearchChange, searchTerm, total }) {
+  const { t } = useTranslation()
+  const { token } = theme.useToken()
+  const navigate = useNavigate()
+
+  return (
+    <Flex align="flex-start" className="mb-6" gap="middle" justify="space-between" wrap="wrap">
+      <div>
+        <Typography.Title level={3} style={{ marginBottom: 4, marginTop: 0 }}>
+          {t('teamMembers.title')}
+        </Typography.Title>
+        <Typography.Text type="secondary">{t('teamMembers.subtitle', { count: total })}</Typography.Text>
+      </div>
+
+      <Flex gap="small" wrap="wrap">
+        <Input
+          allowClear
+          aria-label={t('teamMembers.searchPlaceholder')}
+          onChange={(event) => onSearchChange(event.target.value)}
+          placeholder={t('teamMembers.searchPlaceholder')}
+          prefix={<SearchOutlined style={{ color: token.colorTextPlaceholder }} />}
+          style={{ width: 240 }}
+          value={searchTerm}
+        />
+        <Button icon={<PlusOutlined />} onClick={() => navigate(routes.teamMembers.new)} type="primary">
+          {t('teamMembers.addTeamMember')}
+        </Button>
+      </Flex>
+    </Flex>
+  )
+}

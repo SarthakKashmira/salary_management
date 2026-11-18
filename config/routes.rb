@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :employees, only: [ :index, :show, :create, :update, :destroy ]
     resources :departments, only: [ :index, :create, :update, :destroy ]
+    resources :users, only: [ :index, :create, :update, :destroy ]
     resources :countries, only: :index
     resources :currencies, only: :index
   end
