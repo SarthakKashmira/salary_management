@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_17_212117) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_19_061947) do
   create_table "countries", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
@@ -69,8 +69,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_212117) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "email", null: false
-    t.string "phone", null: false
-    t.string "encrypted_password", null: false
+    t.string "phone"
+    t.string "password_digest", null: false
     t.integer "role", null: false
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
