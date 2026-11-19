@@ -3,6 +3,7 @@ module Api
     include Paginatable
 
     before_action :get_employee, only: [ :show, :update, :destroy ]
+    before_action -> { authorize @employee }, only: [ :update, :destroy ]
 
     def index
       employees = Employees::FetchService.new(search_term: params[:search_term]).process
@@ -14,6 +15,7 @@ module Api
     end
 
     def create
+      authorize Employee
       @employee = Employees::CreateService.new(employee_params: employee_params, salary_params: salary_params).process
       @salary = @employee.salary
     end
@@ -31,6 +33,7 @@ module Api
     end
 
     def bulk_destroy
+      authorize Employee, :destroy?
       Employee.where(id: bulk_destroy_ids).destroy_all
       render_success(message: "Employees deleted successfully")
     end

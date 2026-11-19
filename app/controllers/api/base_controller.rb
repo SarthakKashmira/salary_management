@@ -1,6 +1,7 @@
 module Api
   class BaseController < ActionController::Base
     include Authenticatable
+    include Pundit::Authorization
 
     skip_before_action :verify_authenticity_token
 
@@ -8,6 +9,7 @@ module Api
     rescue_from ActiveRecord::RecordNotDestroyed, with: :render_unprocessable_entity
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     rescue_from Money::Bank::UnknownRate, with: :render_unknown_exchange_rate
+    rescue_from Pundit::NotAuthorizedError, with: :render_forbidden
 
     private
 
@@ -25,6 +27,10 @@ module Api
 
       def render_not_found(exception)
         render json: { errors: [ "#{exception.model} not found" ] }, status: :not_found
+      end
+
+      def render_forbidden
+        render json: { errors: [ "You are not permitted for this action" ] }, status: :forbidden
       end
   end
 end

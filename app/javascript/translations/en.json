@@ -26,6 +26,10 @@
     "defaultError": "Something went wrong!",
     "errorWithStatus": "{{status}}: {{reason}}"
   },
+  "forbidden": {
+    "title": "Permission denied",
+    "subtitle": "You are not permitted for this action. Please ask your manager to make you an admin."
+  },
   "sidebar": {
     "collapse": "Collapse sidebar",
     "expand": "Expand sidebar",

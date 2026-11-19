@@ -1,13 +1,21 @@
+import RequireAdmin from 'components/common/RequireAdmin'
 import Department from 'components/Department'
 import DepartmentForm from 'components/Department/Form'
 import DepartmentShow from 'components/Department/Show'
 import Employee from 'components/Employee'
 import EmployeeForm from 'components/Employee/Form'
 import EmployeeShow from 'components/Employee/Show'
+import Forbidden from 'components/Forbidden'
 import Summary from 'components/Summary'
 import TeamMember from 'components/TeamMember'
 import TeamMemberForm from 'components/TeamMember/Form'
 import routes from 'constants/routes'
+
+const adminOnly = (Component) => (props) => (
+  <RequireAdmin>
+    <Component {...props} />
+  </RequireAdmin>
+)
 
 const componentRoutes = [
   {
@@ -20,7 +28,7 @@ const componentRoutes = [
   },
   {
     path: routes.employees.new,
-    component: EmployeeForm,
+    component: adminOnly(EmployeeForm),
   },
   {
     path: routes.employees.show,
@@ -28,7 +36,7 @@ const componentRoutes = [
   },
   {
     path: routes.employees.edit,
-    component: EmployeeForm,
+    component: adminOnly(EmployeeForm),
   },
   {
     path: routes.teamMembers.index,
@@ -36,11 +44,11 @@ const componentRoutes = [
   },
   {
     path: routes.teamMembers.new,
-    component: TeamMemberForm,
+    component: adminOnly(TeamMemberForm),
   },
   {
     path: routes.teamMembers.edit,
-    component: TeamMemberForm,
+    component: adminOnly(TeamMemberForm),
   },
   {
     path: routes.departments.index,
@@ -48,15 +56,19 @@ const componentRoutes = [
   },
   {
     path: routes.departments.new,
-    component: DepartmentForm,
+    component: adminOnly(DepartmentForm),
   },
   {
     path: routes.departments.show,
-    component: DepartmentShow,
+    component: adminOnly(DepartmentShow),
   },
   {
     path: routes.summary.index,
     component: Summary,
+  },
+  {
+    path: routes.forbidden,
+    component: Forbidden,
   },
 ]
 

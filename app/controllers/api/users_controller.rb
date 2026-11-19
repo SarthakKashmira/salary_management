@@ -3,6 +3,7 @@ module Api
     include Paginatable
 
     before_action :get_user, only: [ :show, :update, :destroy ]
+    before_action -> { authorize @user }, only: [ :update, :destroy ]
 
     def index
       users = Users::FetchService.new(search_term: params[:search_term]).process
@@ -13,6 +14,7 @@ module Api
     end
 
     def create
+      authorize User
       @user = User.create!(create_params.except(:status).merge(status: :invited))
       TeamMemberMailer.invite(@user).deliver_now
     end

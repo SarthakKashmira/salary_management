@@ -42,7 +42,7 @@ const handleErrorResponse = (axiosErrorObject) => {
   const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) => config?.url?.startsWith(endpoint))
 
   if (status === 401 && !isAuthEndpoint) {
-    setToLocalStorage({ authToken: null, authEmail: null, userId: null })
+    setToLocalStorage({ authToken: null, authEmail: null, authRole: null, userId: null })
     setTimeout(() => (window.location.href = '/login'), 2000)
   }
 
@@ -51,6 +51,10 @@ const handleErrorResponse = (axiosErrorObject) => {
   toast.error(status ? i18n.t('api.errorWithStatus', { reason, status }) : reason)
 
   if (status === 423) window.location.href = '/login'
+
+  // A member role tried a write action the UI should have already blocked
+  // via route guards - land them on the same page a blocked click would.
+  if (status === 403) window.location.href = '/403'
 
   return Promise.reject(axiosErrorObject)
 }

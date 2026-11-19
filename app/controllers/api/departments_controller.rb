@@ -3,6 +3,7 @@ module Api
     include Paginatable
 
     before_action :get_department, only: [ :show, :update, :destroy ]
+    before_action -> { authorize @department }, only: [ :update, :destroy ]
 
     def index
       departments = Departments::FetchService.new(search_term: params[:search_term]).process
@@ -13,6 +14,7 @@ module Api
     end
 
     def create
+      authorize Department
       @department = Department.create!(department_params)
     end
 
@@ -26,6 +28,7 @@ module Api
     end
 
     def bulk_destroy
+      authorize Department, :destroy?
       result = Departments::BulkDestroyService.new(ids: bulk_destroy_ids).process
       @deleted_count = result.deleted_count
       @failed_departments = result.failed_departments

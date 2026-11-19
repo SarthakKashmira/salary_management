@@ -23,6 +23,9 @@ gem "bcrypt", "~> 3.1.7"
 # Encode/decode JSON Web Tokens for authenticating API requests [https://github.com/jwt/ruby-jwt]
 gem "jwt"
 
+# Role-based authorization policies [https://github.com/varvet/pundit]
+gem "pundit"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

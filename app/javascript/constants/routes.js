@@ -2,6 +2,7 @@ const routes = {
   root: '/',
   login: '/login',
   forgotPassword: '/forgot-password',
+  forbidden: '/403',
   employees: {
     index: '/employees',
     new: '/employees/new',
