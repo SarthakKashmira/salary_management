@@ -8,10 +8,10 @@ import routes from 'constants/routes'
 import { useRegister } from 'hooks/auth'
 import { persistSession } from 'utils/auth'
 
-import { INITIAL_VALUES, VALIDATION_SCHEMA } from './constants'
+import { buildInitialValues, VALIDATION_SCHEMA } from './constants'
 import { buildRegistrationPayload, getFieldStatus } from './utils'
 
-export default function RegisterForm() {
+export default function RegisterForm({ invitedEmail }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -24,7 +24,8 @@ export default function RegisterForm() {
   })
 
   const formik = useFormik({
-    initialValues: INITIAL_VALUES,
+    enableReinitialize: true,
+    initialValues: buildInitialValues(invitedEmail ?? ''),
     onSubmit: (values) => register(buildRegistrationPayload(values)),
     validationSchema: VALIDATION_SCHEMA,
   })
@@ -61,7 +62,14 @@ export default function RegisterForm() {
       </Row>
 
       <Form.Item {...fieldItemProps('email', t('auth.fields.email'), 'registerEmail')} required>
-        <Input id="registerEmail" name="email" onBlur={handleBlur} onChange={handleChange} value={values.email} />
+        <Input
+          disabled={Boolean(invitedEmail)}
+          id="registerEmail"
+          name="email"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.email}
+        />
       </Form.Item>
 
       <Form.Item {...fieldItemProps('phone', t('auth.fields.phone'), 'registerPhone')}>

@@ -10,7 +10,8 @@ module Api
     end
 
     def create
-      render_error(message: "Forbidden", status: :forbidden)
+      @user = User.create!(user_params.except(:status).merge(status: :invited))
+      TeamMemberMailer.invite(@user).deliver_now
     end
 
     def update

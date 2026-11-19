@@ -10,7 +10,6 @@ export const buildUserPayload = (values) => ({
     email: values.email,
     phone: values.phone,
     role: values.role,
-    status: values.isActive ? 'active' : 'inactive',
   }),
 })
 

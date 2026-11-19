@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Select, Switch, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -18,8 +18,8 @@ export default function TeamMemberForm() {
   const roleOptions = ROLES.map((role) => ({ label: t(`teamMembers.roles.${role}`), value: role }))
 
   const { mutate: createUser, isPending } = useCreateUser({
-    onSuccess: () => {
-      toast.success(t('teamMembers.form.createdSuccessfully'))
+    onSuccess: ({ data }) => {
+      toast.success(t('teamMembers.form.invitedSuccessfully', { email: data.email }))
       navigate(routes.teamMembers.index)
     },
   })
@@ -68,31 +68,17 @@ export default function TeamMemberForm() {
           </Col>
         </Row>
 
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item {...fieldItemProps('role', t('teamMembers.form.fields.role'))} required>
-              <Select
-                id="role"
-                onBlur={() => setFieldTouched('role', true)}
-                onChange={(value) => setFieldValue('role', value)}
-                options={roleOptions}
-                placeholder={t('teamMembers.form.placeholders.role')}
-                value={values.role}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item htmlFor="isActive" label={t('teamMembers.form.fields.status')}>
-              <Switch
-                checked={values.isActive}
-                checkedChildren={t('common.status.active')}
-                id="isActive"
-                onChange={(checked) => setFieldValue('isActive', checked)}
-                unCheckedChildren={t('common.status.inactive')}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+        <Form.Item {...fieldItemProps('role', t('teamMembers.form.fields.role'))} required>
+          <Select
+            id="role"
+            onBlur={() => setFieldTouched('role', true)}
+            onChange={(value) => setFieldValue('role', value)}
+            options={roleOptions}
+            placeholder={t('teamMembers.form.placeholders.role')}
+            style={{ maxWidth: 'calc(50% - 8px)' }}
+            value={values.role}
+          />
+        </Form.Item>
 
         <Form.Item>
           <Button htmlType="submit" loading={isPending} type="primary">

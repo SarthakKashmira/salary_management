@@ -5,6 +5,8 @@ export const COLORS = {
   red: '#B42318',
   redSoft: '#FEE4E2',
   redMedium: '#E5484D',
+  amber: '#B54708',
+  amberSoft: '#FFF4E5',
   cream: '#FAF6EC',
   creamRaised: '#FFFDF7',
   white: '#FFFFFF',
@@ -16,6 +18,7 @@ export const AVATAR_COLORS = ['#1F7A53', '#0F6E6E', '#2A5DA8', '#6D4AA6', '#8A5A
 export const STATUS_STYLES = {
   active: { color: COLORS.green, background: COLORS.greenSoft, borderColor: COLORS.green },
   inactive: { color: COLORS.red, background: COLORS.redSoft, borderColor: COLORS.red },
+  invited: { color: COLORS.amber, background: COLORS.amberSoft, borderColor: COLORS.amber },
 }
 
 const theme = {

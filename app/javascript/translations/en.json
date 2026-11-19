@@ -10,7 +10,8 @@
     "edit": "Edit",
     "status": {
       "active": "Active",
-      "inactive": "Inactive"
+      "inactive": "Inactive",
+      "invited": "Invited"
     },
     "delete": "Delete",
     "proceed": "Proceed",
@@ -175,19 +176,18 @@
     },
     "form": {
       "title": "Add team member",
-      "subtitle": "Fill in the team member's details below.",
+      "subtitle": "Fill in their details below - we'll email them a link to set up their account.",
       "fields": {
         "firstName": "First name",
         "lastName": "Last name",
         "email": "Email",
         "phone": "Phone",
-        "role": "Role",
-        "status": "Status"
+        "role": "Role"
       },
       "placeholders": {
         "role": "Select a role"
       },
-      "createdSuccessfully": "Team member added successfully"
+      "invitedSuccessfully": "An invitation has been sent to {{email}}"
     }
   },
   "summary": {

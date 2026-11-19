@@ -6,7 +6,6 @@ export const INITIAL_VALUES = {
   email: '',
   phone: '',
   role: undefined,
-  isActive: true,
 }
 
 export const VALIDATION_SCHEMA = Yup.object({
@@ -15,5 +14,4 @@ export const VALIDATION_SCHEMA = Yup.object({
   email: Yup.string().trim().email('Enter a valid email address').required('Email is required'),
   phone: Yup.string().trim().required('Phone is required'),
   role: Yup.string().required('Role is required'),
-  isActive: Yup.boolean(),
 })

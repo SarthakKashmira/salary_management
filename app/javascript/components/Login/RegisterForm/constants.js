@@ -1,12 +1,12 @@
 import * as Yup from 'yup'
 
-export const INITIAL_VALUES = {
+export const buildInitialValues = (email = '') => ({
   firstName: '',
   lastName: '',
-  email: '',
+  email,
   phone: '',
   password: '',
-}
+})
 
 export const VALIDATION_SCHEMA = Yup.object({
   firstName: Yup.string().trim().required('First name is required'),

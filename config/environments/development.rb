@@ -34,6 +34,10 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # No SMTP provider is configured yet, so deliveries just log the rendered
+  # email instead of attempting a real send. Swap to :smtp once credentials exist.
+  config.action_mailer.delivery_method = :test
+
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 

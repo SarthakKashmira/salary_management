@@ -1,6 +1,6 @@
 import { Card, Flex, Tabs, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useSearchParams } from 'react-router-dom'
 
 import logo from 'assets/A-logo.webp'
 import routes from 'constants/routes'
@@ -11,12 +11,15 @@ import RegisterForm from './RegisterForm'
 
 export default function Login() {
   const { t } = useTranslation()
+  const [searchParams] = useSearchParams()
 
   if (isAuthenticated()) return <Navigate replace to={routes.root} />
 
+  const invitedEmail = searchParams.get('email')
+
   const items = [
     { children: <LoginForm />, key: 'login', label: t('auth.login.tabTitle') },
-    { children: <RegisterForm />, key: 'register', label: t('auth.register.tabTitle') },
+    { children: <RegisterForm invitedEmail={invitedEmail} />, key: 'register', label: t('auth.register.tabTitle') },
   ]
 
   return (
@@ -27,7 +30,7 @@ export default function Login() {
           <Typography.Text strong>{t('app.name')}</Typography.Text>
         </Flex>
 
-        <Tabs centered items={items} />
+        <Tabs centered defaultActiveKey={invitedEmail ? 'register' : 'login'} items={items} />
       </Card>
     </Flex>
   )
