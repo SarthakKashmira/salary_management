@@ -1,32 +1,15 @@
 import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
 import { Button, Flex, Input, theme, Typography } from 'antd'
-import { isEmpty } from 'ramda'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { COLORS } from 'common/theme'
-import DeleteModal from 'components/common/DeleteModal'
 import routes from 'constants/routes'
 
-import BlockedDeleteModal from '../BlockedDeleteModal'
-
-export default function Header({
-  blockedDepartments,
-  isBulkDeleting,
-  isDeleteModalOpen,
-  onCancelDelete,
-  onConfirmDelete,
-  onOpenDeleteModal,
-  onSearchChange,
-  searchTerm,
-  selectedCount,
-  total,
-}) {
+export default function Header({ isBulkDeleting, onOpenDeleteModal, onSearchChange, searchTerm, selectedCount, total }) {
   const { t } = useTranslation()
   const { token } = theme.useToken()
   const navigate = useNavigate()
-
-  const hasBlockedDepartments = !isEmpty(blockedDepartments)
 
   return (
     <Flex align="flex-start" gap="middle" justify="space-between" style={{ marginBottom: 20 }} wrap="wrap">
@@ -65,19 +48,6 @@ export default function Header({
           {t('departments.addDepartment')}
         </Button>
       </Flex>
-
-      {hasBlockedDepartments ? (
-        <BlockedDeleteModal departments={blockedDepartments} onCancel={onCancelDelete} open={isDeleteModalOpen} />
-      ) : (
-        <DeleteModal
-          confirmLoading={isBulkDeleting}
-          count={selectedCount}
-          entityName="department"
-          onCancel={onCancelDelete}
-          onConfirm={onConfirmDelete}
-          open={isDeleteModalOpen}
-        />
-      )}
     </Flex>
   )
 }

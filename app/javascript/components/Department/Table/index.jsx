@@ -6,7 +6,7 @@ import NoData from 'components/common/NoData'
 
 import { buildColumns } from '../utils'
 
-export default function Table({ departments, onSelectionChange, pagination, selectedRowKeys }) {
+export default function Table({ departments, onDeleteDepartment, onEditDepartment, onSelectionChange, pagination, selectedRowKeys }) {
   const { t } = useTranslation()
   const { onChange, page, pageSize, totalCount } = pagination
 
@@ -14,7 +14,7 @@ export default function Table({ departments, onSelectionChange, pagination, sele
 
   return (
     <AntTable
-      columns={buildColumns(t)}
+      columns={buildColumns(t, { onDelete: onDeleteDepartment, onEdit: onEditDepartment })}
       dataSource={departments}
       pagination={{
         current: page,

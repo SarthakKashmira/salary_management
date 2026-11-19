@@ -17,7 +17,8 @@
     "deleteModal": {
       "title": "Delete {{count}} {{entity}}",
       "description": "Are you sure you want to delete {{count}} {{entity}}?"
-    }
+    },
+    "moreActions": "More actions"
   },
   "api": {
     "success": "Success",

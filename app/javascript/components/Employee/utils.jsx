@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { AVATAR_COLORS, STATUS_STYLES } from 'common/theme'
 import Placeholder from 'components/common/Placeholder'
+import RowActionsDropdown from 'components/common/RowActionsDropdown'
 import routes from 'constants/routes'
 import { buildUrl } from 'utils/url'
 
@@ -18,22 +19,25 @@ export const avatarColorOf = ({ id }) => AVATAR_COLORS[id % AVATAR_COLORS.length
 
 export const formatAmount = (amount, symbol) => `${symbol}${Number(amount).toLocaleString()}`
 
-export const buildColumns = (t) => [
+export const buildColumns = (t, { onDelete, onEdit }) => [
   {
     key: 'employee',
     title: t('employees.columns.employee'),
     render: (_, employee) => (
-      <Link style={{ color: 'inherit', display: 'block' }} to={buildUrl(routes.employees.show, { id: employee.id })}>
-        <Flex align="center" gap="small">
-          <Avatar style={{ backgroundColor: avatarColorOf(employee) }}>{initialsOf(employee)}</Avatar>
-          <div className="min-w-0">
-            <div>{fullNameOf(employee)}</div>
-            <Typography.Text ellipsis type="secondary">
-              {employee.email}
-            </Typography.Text>
-          </div>
-        </Flex>
-      </Link>
+      <Flex align="center" gap="small" justify="space-between">
+        <Link style={{ color: 'inherit' }} to={buildUrl(routes.employees.show, { id: employee.id })}>
+          <Flex align="center" gap="small">
+            <Avatar style={{ backgroundColor: avatarColorOf(employee) }}>{initialsOf(employee)}</Avatar>
+            <div className="min-w-0">
+              <div>{fullNameOf(employee)}</div>
+              <Typography.Text ellipsis type="secondary">
+                {employee.email}
+              </Typography.Text>
+            </div>
+          </Flex>
+        </Link>
+        <RowActionsDropdown onDelete={() => onDelete(employee)} onEdit={() => onEdit(employee)} />
+      </Flex>
     ),
   },
   {

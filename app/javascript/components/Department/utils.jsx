@@ -1,21 +1,21 @@
+import { Flex } from 'antd'
 import dayjs from 'dayjs'
-import { Link } from 'react-router-dom'
 
 import Placeholder from 'components/common/Placeholder'
-import routes from 'constants/routes'
-import { buildUrl } from 'utils/url'
+import RowActionsDropdown from 'components/common/RowActionsDropdown'
 
 import { DATE_FORMAT } from './constants'
 
-export const buildColumns = (t) => [
+export const buildColumns = (t, { onDelete, onEdit }) => [
   {
     dataIndex: 'name',
     key: 'name',
     title: t('departments.columns.name'),
     render: (name, department) => (
-      <Link style={{ color: 'inherit' }} to={buildUrl(routes.departments.show, { id: department.id })}>
-        {name}
-      </Link>
+      <Flex align="center" gap="small" justify="space-between">
+        <span>{name}</span>
+        <RowActionsDropdown onDelete={() => onDelete(department)} onEdit={() => onEdit(department)} />
+      </Flex>
     ),
   },
   {

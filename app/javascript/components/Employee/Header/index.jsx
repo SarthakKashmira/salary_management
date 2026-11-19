@@ -1,24 +1,15 @@
 import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
 import { Button, Flex, Input, theme, Typography } from 'antd'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { COLORS } from 'common/theme'
-import DeleteModal from 'components/common/DeleteModal'
 import routes from 'constants/routes'
 
-export default function Header({ isBulkDeleting, onBulkDelete, onSearchChange, searchTerm, selectedCount, total }) {
+export default function Header({ isBulkDeleting, onOpenDeleteModal, onSearchChange, searchTerm, selectedCount, total }) {
   const { t } = useTranslation()
   const { token } = theme.useToken()
   const navigate = useNavigate()
-
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-
-  const handleConfirmDelete = () => {
-    onBulkDelete()
-    setIsDeleteModalOpen(false)
-  }
 
   return (
     <Flex align="flex-start" gap="middle" justify="space-between" style={{ marginBottom: 20 }} wrap="wrap">
@@ -32,7 +23,7 @@ export default function Header({ isBulkDeleting, onBulkDelete, onSearchChange, s
             <Button
               icon={<DeleteOutlined />}
               loading={isBulkDeleting}
-              onClick={() => setIsDeleteModalOpen(true)}
+              onClick={onOpenDeleteModal}
               size="small"
               style={{ backgroundColor: COLORS.redMedium, borderColor: COLORS.redMedium }}
               type="primary"
@@ -57,15 +48,6 @@ export default function Header({ isBulkDeleting, onBulkDelete, onSearchChange, s
           {t('employees.addEmployee')}
         </Button>
       </Flex>
-
-      <DeleteModal
-        confirmLoading={isBulkDeleting}
-        count={selectedCount}
-        entityName="employee"
-        onCancel={() => setIsDeleteModalOpen(false)}
-        onConfirm={handleConfirmDelete}
-        open={isDeleteModalOpen}
-      />
     </Flex>
   )
 }

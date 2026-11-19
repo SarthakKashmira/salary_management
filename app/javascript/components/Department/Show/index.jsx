@@ -22,7 +22,10 @@ export default function DepartmentShow() {
   const { data: department, isLoading } = useShowDepartment(id)
 
   const { mutate: updateDepartment, isPending } = useUpdateDepartment({
-    onSuccess: () => toast.success(t('departments.show.updatedSuccessfully')),
+    onSuccess: () => {
+      toast.success(t('departments.show.updatedSuccessfully'))
+      navigate(routes.departments.index)
+    },
   })
 
   const formik = useFormik({
