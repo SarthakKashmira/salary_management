@@ -18,7 +18,7 @@ export default function Layout() {
   const isDesktop = Boolean(screens.lg)
 
   return (
-    <AntLayout hasSider={isDesktop} style={{ minHeight: '100vh' }}>
+    <AntLayout hasSider={isDesktop} style={{ height: '100vh' }}>
       <Sidebar
         isCollapsed={isCollapsed}
         isMobileOpen={isMobileOpen}
@@ -26,7 +26,7 @@ export default function Layout() {
         onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
       />
 
-      <AntLayout>
+      <AntLayout style={{ height: '100vh' }}>
         {!isDesktop && (
           <Header className="flex items-center gap-3" style={{ paddingInline: 16 }}>
             <Button
@@ -39,7 +39,10 @@ export default function Layout() {
           </Header>
         )}
 
-        <Content className="p-4 pt-6 sm:p-6 sm:pt-10">
+        <Content
+          className="p-4 pt-6 sm:p-6 sm:pt-10"
+          style={{ display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}
+        >
           <Outlet />
         </Content>
       </AntLayout>

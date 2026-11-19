@@ -14,6 +14,7 @@ export default function Table({ employees, onDeleteEmployee, onEditEmployee, onS
 
   return (
     <AntTable
+      className="fill-table"
       columns={buildColumns(t, { onDelete: onDeleteEmployee, onEdit: onEditEmployee })}
       dataSource={employees}
       pagination={{
@@ -26,7 +27,7 @@ export default function Table({ employees, onDeleteEmployee, onEditEmployee, onS
       }}
       rowKey="id"
       rowSelection={{ onChange: onSelectionChange, selectedRowKeys }}
-      scroll={{ x: 'max-content' }}
+      scroll={{ x: 'max-content', y: 1 }}
     />
   )
 }

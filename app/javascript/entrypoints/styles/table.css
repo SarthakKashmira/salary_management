@@ -1,0 +1,34 @@
+.fill-table {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fill-table .ant-spin-nested-loading,
+.fill-table .ant-spin,
+.fill-table .ant-spin-container,
+.fill-table .ant-table,
+.fill-table .ant-table-container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fill-table .ant-table-header,
+.fill-table .ant-table-pagination {
+  flex: 0 0 auto;
+}
+
+.fill-table .ant-table-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none !important;
+  overflow-y: auto !important;
+}
+
+.fill-table .ant-table-thead > tr > th,
+.fill-table .ant-table-tbody > tr > td {
+  font-size: 12px;
+}

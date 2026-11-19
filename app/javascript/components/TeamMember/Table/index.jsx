@@ -14,6 +14,7 @@ export default function Table({ users, pagination }) {
 
   return (
     <AntTable
+      className="fill-table"
       columns={buildColumns(t)}
       dataSource={users}
       pagination={{
@@ -25,7 +26,7 @@ export default function Table({ users, pagination }) {
         total: totalCount,
       }}
       rowKey="id"
-      scroll={{ x: 'max-content' }}
+      scroll={{ x: 'max-content', y: 1 }}
     />
   )
 }
