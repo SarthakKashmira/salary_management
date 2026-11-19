@@ -1,5 +1,7 @@
 const routes = {
   root: '/',
+  login: '/login',
+  forgotPassword: '/forgot-password',
   employees: {
     index: '/employees',
     new: '/employees/new',

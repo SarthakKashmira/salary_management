@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       end
     end
     resources :users, only: [ :index, :create, :update, :destroy ]
+    resource :session, only: :create
+    resource :registration, only: :create
     resources :countries, only: :index
     resources :currencies, only: :index
     resource :summary, only: :show, controller: "summary"

@@ -2,16 +2,18 @@ import {
   ApartmentOutlined,
   DashboardOutlined,
   IdcardOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   TeamOutlined,
 } from '@ant-design/icons'
-import { Button, Drawer, Grid, Layout, Menu, theme, Typography } from 'antd'
+import { Button, Drawer, Flex, Grid, Layout, Menu, theme, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import logo from 'assets/A-logo.webp'
 import routes from 'constants/routes'
+import { clearSession } from 'utils/auth'
 
 const { Sider } = Layout
 const { useBreakpoint } = Grid
@@ -48,6 +50,18 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
     navigate(key)
     onCloseMobile()
   }
+
+  const handleLogout = () => {
+    clearSession()
+    navigate(routes.login)
+    onCloseMobile()
+  }
+
+  const logoutButton = (
+    <Button block icon={<LogoutOutlined />} onClick={handleLogout} type="text">
+      {!isCollapsed && t('sidebar.logout')}
+    </Button>
+  )
 
   const brand = (showToggle) => (
     <div className="flex min-h-14 items-center gap-2 px-4 py-4">
@@ -89,6 +103,7 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
     return (
       <Drawer
         closable={false}
+        footer={<div style={{ padding: 8 }}>{logoutButton}</div>}
         onClose={onCloseMobile}
         open={isMobileOpen}
         placement="left"
@@ -109,8 +124,13 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
       trigger={null}
       width={SIDEBAR_WIDTH}
     >
-      {brand(true)}
-      {navigation}
+      <Flex className="h-full" justify="space-between" vertical>
+        <div>
+          {brand(true)}
+          {navigation}
+        </div>
+        <div style={{ padding: 8 }}>{logoutButton}</div>
+      </Flex>
     </Sider>
   )
 }

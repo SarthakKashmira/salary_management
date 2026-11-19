@@ -6,7 +6,11 @@ import { ToastContainer } from 'react-toastify'
 import queryClient from 'common/queryClient'
 import theme from 'common/theme'
 import Layout from 'components/common/Layout'
+import RequireAuth from 'components/common/RequireAuth'
 import componentRoutes from 'components/constants/routes'
+import ForgotPassword from 'components/ForgotPassword'
+import Login from 'components/Login'
+import routes from 'constants/routes'
 
 import 'react-toastify/dist/ReactToastify.css'
 import 'common/i18n'
@@ -17,7 +21,15 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route element={<Layout />}>
+            <Route element={<Login />} path={routes.login} />
+            <Route element={<ForgotPassword />} path={routes.forgotPassword} />
+            <Route
+              element={
+                <RequireAuth>
+                  <Layout />
+                </RequireAuth>
+              }
+            >
               {componentRoutes.map(({ path, component: Component }) => (
                 <Route element={<Component />} key={path} path={path} />
               ))}

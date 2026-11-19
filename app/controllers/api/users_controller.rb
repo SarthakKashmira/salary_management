@@ -9,10 +9,8 @@ module Api
       @users = paginate(users)
     end
 
-    # There's no auth/invite flow yet, so a freshly created team member has no
-    # real password - just enough to satisfy the NOT NULL column until one exists.
     def create
-      @user = User.create!(user_params.merge(encrypted_password: SecureRandom.hex(16)))
+      render_error(message: "Forbidden", status: :forbidden)
     end
 
     def update

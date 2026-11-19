@@ -34,20 +34,23 @@ const handleSuccessResponse = (response) => {
   return response
 }
 
-const handleErrorResponse = (axiosErrorObject) => {
-  const { response } = axiosErrorObject
-  const status = response?.status
+const AUTH_ENDPOINTS = [ '/session', '/registration' ]
 
-  if (status === 401) {
+const handleErrorResponse = (axiosErrorObject) => {
+  const { config, response } = axiosErrorObject
+  const status = response?.status
+  const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) => config?.url?.startsWith(endpoint))
+
+  if (status === 401 && !isAuthEndpoint) {
     setToLocalStorage({ authToken: null, authEmail: null, userId: null })
-    setTimeout(() => (window.location.href = '/'), 2000)
+    setTimeout(() => (window.location.href = '/login'), 2000)
   }
 
   const reason =
     response?.data?.errors?.join(', ') || response?.data?.error || axiosErrorObject.message || i18n.t('api.defaultError')
   toast.error(status ? i18n.t('api.errorWithStatus', { reason, status }) : reason)
 
-  if (status === 423) window.location.href = '/'
+  if (status === 423) window.location.href = '/login'
 
   return Promise.reject(axiosErrorObject)
 }

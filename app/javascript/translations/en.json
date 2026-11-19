@@ -29,7 +29,33 @@
     "collapse": "Collapse sidebar",
     "expand": "Expand sidebar",
     "open": "Open navigation",
-    "close": "Close navigation"
+    "close": "Close navigation",
+    "logout": "Log out"
+  },
+  "auth": {
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "phone": "Phone"
+    },
+    "login": {
+      "tabTitle": "Log in",
+      "submit": "Log in",
+      "forgotPassword": "Forgot password?",
+      "success": "Logged in successfully"
+    },
+    "register": {
+      "tabTitle": "Register",
+      "submit": "Register",
+      "success": "Account created successfully"
+    },
+    "forgotPassword": {
+      "title": "Forgot password",
+      "message": "Password reset isn't available yet. Please contact your administrator.",
+      "backToLogin": "Back to login"
+    }
   },
   "nav": {
     "employees": "Employees",
