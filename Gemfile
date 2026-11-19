@@ -14,6 +14,8 @@ gem "jbuilder"
 gem "vite_rails"
 # Pagination for Active Record collections [https://ddnexus.github.io/pagy]
 gem "pagy"
+# Currency arithmetic and conversion [https://github.com/RubyMoney/money]
+gem "money"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

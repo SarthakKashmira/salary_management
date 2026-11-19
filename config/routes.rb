@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :users, only: [ :index, :create, :update, :destroy ]
     resources :countries, only: :index
     resources :currencies, only: :index
+    resource :summary, only: :show, controller: "summary"
   end
 
   # React Router owns client-side routing; Rails just serves the SPA shell

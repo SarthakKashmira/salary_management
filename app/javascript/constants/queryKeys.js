@@ -4,6 +4,7 @@ const QUERY_KEYS = {
   COUNTRIES: 'countries',
   CURRENCIES: 'currencies',
   USERS: 'users',
+  SUMMARY: 'summary',
 }
 
 export default QUERY_KEYS

@@ -1,6 +1,6 @@
 import {
   ApartmentOutlined,
-  BarChartOutlined,
+  DashboardOutlined,
   IdcardOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -21,7 +21,7 @@ const NAV_ITEMS = [
   { key: routes.employees.index, labelKey: 'nav.employees', Icon: TeamOutlined },
   { key: routes.teamMembers.index, labelKey: 'nav.teamMembers', Icon: IdcardOutlined },
   { key: routes.departments.index, labelKey: 'nav.departments', Icon: ApartmentOutlined },
-  { key: routes.salaryReports.index, labelKey: 'nav.salaryReports', Icon: BarChartOutlined },
+  { key: routes.summary.index, labelKey: 'nav.summary', Icon: DashboardOutlined },
 ]
 
 const SIDEBAR_WIDTH = 240

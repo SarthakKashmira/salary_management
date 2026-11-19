@@ -34,7 +34,7 @@
     "employees": "Employees",
     "teamMembers": "Team members",
     "departments": "Departments",
-    "salaryReports": "Salary reports"
+    "summary": "Summary"
   },
   "employees": {
     "title": "Employees",
@@ -161,6 +161,19 @@
         "role": "Select a role"
       },
       "createdSuccessfully": "Team member added successfully"
+    }
+  },
+  "summary": {
+    "title": "Summary",
+    "subtitle": "A quick overview of your organization's salary data.",
+    "noSalaryData": "No salary data has been added yet.",
+    "cards": {
+      "totalEmployees": "Total employees",
+      "maxSalary": "Max salary",
+      "minSalary": "Min salary",
+      "averageSalary": "Average salary",
+      "medianSalary": "Median salary",
+      "totalSalaryCost": "Total salary cost"
     }
   }
 }
