@@ -1,15 +1,21 @@
-import { Tag } from 'antd'
+import { Flex, Tag } from 'antd'
 
 import { STATUS_STYLES } from 'common/theme'
 import Placeholder from 'components/common/Placeholder'
+import RowActionsDropdown from 'components/common/RowActionsDropdown'
 
 export const fullNameOf = ({ firstName, lastName }) => [firstName, lastName].filter(Boolean).join(' ')
 
-export const buildColumns = (t) => [
+export const buildColumns = (t, { onDelete, onEdit }) => [
   {
     key: 'teamMember',
     title: t('teamMembers.columns.name'),
-    render: (_, user) => fullNameOf(user),
+    render: (_, user) => (
+      <Flex align="center" gap="small" justify="space-between">
+        <span>{fullNameOf(user)}</span>
+        <RowActionsDropdown onDelete={() => onDelete(user)} onEdit={() => onEdit(user)} />
+      </Flex>
+    ),
   },
   {
     dataIndex: 'email',

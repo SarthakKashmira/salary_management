@@ -17,10 +17,34 @@ const useFetchUsers = (params = {}, options = {}) =>
     ...options,
   })
 
+const useShowUser = (id, options = {}) =>
+  useQuery({
+    enabled: Boolean(id),
+    queryKey: [USERS, id],
+    queryFn: async () => {
+      const { data } = await userApi.fetchUser(id)
+
+      return data
+    },
+    ...options,
+  })
+
 const useCreateUser = (options = {}) =>
   useMutationWithInvalidation(userApi.createUser, {
     keysToInvalidate: [[USERS]],
     ...options,
   })
 
-export { useFetchUsers, useCreateUser }
+const useUpdateUser = (options = {}) =>
+  useMutationWithInvalidation(userApi.updateUser, {
+    keysToInvalidate: [[USERS]],
+    ...options,
+  })
+
+const useDeleteUser = (options = {}) =>
+  useMutationWithInvalidation(userApi.deleteUser, {
+    keysToInvalidate: [[USERS]],
+    ...options,
+  })
+
+export { useFetchUsers, useShowUser, useCreateUser, useUpdateUser, useDeleteUser }

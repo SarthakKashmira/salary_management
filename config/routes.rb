@@ -17,7 +17,7 @@ Rails.application.routes.draw do
         delete :bulk_destroy
       end
     end
-    resources :users, only: [ :index, :create, :update, :destroy ]
+    resources :users, only: [ :index, :show, :create, :update, :destroy ]
     resource :session, only: :create
     resource :registration, only: :create
     resources :countries, only: :index

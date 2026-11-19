@@ -5,7 +5,7 @@ import { COLORS } from 'common/theme'
 
 const pluralize = (word, count) => (count === 1 ? word : `${word}s`)
 
-export default function DeleteModal({ confirmLoading, count, entityName, onCancel, onConfirm, open }) {
+export default function DeleteModal({ confirmLoading, count, description, entityName, onCancel, onConfirm, open }) {
   const { t } = useTranslation()
 
   const entity = pluralize(entityName, count)
@@ -23,7 +23,7 @@ export default function DeleteModal({ confirmLoading, count, entityName, onCance
       styles={{ mask: { backdropFilter: 'blur(4px)' } }}
       title={t('common.deleteModal.title', { count, entity })}
     >
-      <Typography.Text>{t('common.deleteModal.description', { count, entity })}</Typography.Text>
+      <Typography.Text>{description ?? t('common.deleteModal.description', { count, entity })}</Typography.Text>
     </Modal>
   )
 }

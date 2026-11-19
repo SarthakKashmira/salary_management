@@ -187,7 +187,16 @@
       "placeholders": {
         "role": "Select a role"
       },
-      "invitedSuccessfully": "An invitation has been sent to {{email}}"
+      "invitedSuccessfully": "An invitation has been sent to {{email}}",
+      "edit": {
+        "title": "Edit team member",
+        "subtitle": "Update the team member's details below.",
+        "updatedSuccessfully": "Team member updated successfully"
+      }
+    },
+    "deleteModal": {
+      "description": "Are you sure you want to delete this team member? Once deleted, they will need to be invited again to register.",
+      "success": "Team member deleted successfully"
     }
   },
   "summary": {

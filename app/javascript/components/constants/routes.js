@@ -39,6 +39,10 @@ const componentRoutes = [
     component: TeamMemberForm,
   },
   {
+    path: routes.teamMembers.edit,
+    component: TeamMemberForm,
+  },
+  {
     path: routes.departments.index,
     component: Department,
   },

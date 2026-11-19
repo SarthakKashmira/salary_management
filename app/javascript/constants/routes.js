@@ -11,6 +11,7 @@ const routes = {
   teamMembers: {
     index: '/team-members',
     new: '/team-members/new',
+    edit: '/team-members/:id/edit',
   },
   departments: {
     index: '/departments',
