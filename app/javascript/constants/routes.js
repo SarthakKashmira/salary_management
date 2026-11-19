@@ -13,9 +13,10 @@ const routes = {
   departments: {
     index: '/departments',
     new: '/departments/new',
+    show: '/departments/:id',
   },
-  salaryReports: {
-    index: '/salary-reports',
+  summary: {
+    index: '/summary',
   },
   salaries: {
     index: '/salaries',

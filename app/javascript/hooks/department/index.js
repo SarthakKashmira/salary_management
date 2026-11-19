@@ -17,8 +17,26 @@ const useFetchDepartments = (params = {}, options = {}) =>
     ...options,
   })
 
+const useShowDepartment = (id, options = {}) =>
+  useQuery({
+    enabled: Boolean(id),
+    queryKey: [DEPARTMENTS, id],
+    queryFn: async () => {
+      const { data } = await departmentApi.fetchDepartment(id)
+
+      return data
+    },
+    ...options,
+  })
+
 const useCreateDepartment = (options = {}) =>
   useMutationWithInvalidation(departmentApi.createDepartment, {
+    keysToInvalidate: [[DEPARTMENTS]],
+    ...options,
+  })
+
+const useUpdateDepartment = (options = {}) =>
+  useMutationWithInvalidation(departmentApi.updateDepartment, {
     keysToInvalidate: [[DEPARTMENTS]],
     ...options,
   })
@@ -29,4 +47,4 @@ const useBulkDeleteDepartments = (options = {}) =>
     ...options,
   })
 
-export { useFetchDepartments, useCreateDepartment, useBulkDeleteDepartments }
+export { useFetchDepartments, useShowDepartment, useCreateDepartment, useUpdateDepartment, useBulkDeleteDepartments }

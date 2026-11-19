@@ -123,6 +123,9 @@
       "success": "Departments deleted successfully",
       "blockedTitle": "Cannot delete departments",
       "blockedDescription": "The following departments cannot be deleted because they have employees assigned to them. Please reassign or remove the employees listed below before attempting to delete these departments."
+    },
+    "show": {
+      "updatedSuccessfully": "Department updated successfully"
     }
   },
   "teamMembers": {
