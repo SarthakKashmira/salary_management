@@ -2,7 +2,6 @@ import {
   ApartmentOutlined,
   DashboardOutlined,
   IdcardOutlined,
-  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   TeamOutlined,
@@ -14,6 +13,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import logo from 'assets/A-logo.webp'
 import routes from 'constants/routes'
 import { clearSession } from 'utils/auth'
+
+import Profile from './Profile'
 
 const { Sider } = Layout
 const { useBreakpoint } = Grid
@@ -57,12 +58,6 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
     onCloseMobile()
   }
 
-  const logoutButton = (
-    <Button block icon={<LogoutOutlined />} onClick={handleLogout} type="text">
-      {!isCollapsed && t('sidebar.logout')}
-    </Button>
-  )
-
   const brand = (showToggle) => (
     <div className="flex min-h-14 items-center gap-2 px-4 py-4">
       <img
@@ -103,7 +98,7 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
     return (
       <Drawer
         closable={false}
-        footer={<div style={{ padding: 8 }}>{logoutButton}</div>}
+        footer={<Profile isCollapsed={false} onLogout={handleLogout} />}
         onClose={onCloseMobile}
         open={isMobileOpen}
         placement="left"
@@ -129,7 +124,7 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
           {brand(true)}
           {navigation}
         </div>
-        <div style={{ padding: 8 }}>{logoutButton}</div>
+        <Profile isCollapsed={isCollapsed} onLogout={handleLogout} />
       </Flex>
     </Sider>
   )

@@ -14,3 +14,5 @@ export const clearSession = () => {
 export const isAuthenticated = () => Boolean(getFromLocalStorage('authToken') && getFromLocalStorage('authEmail'))
 
 export const isAdmin = () => getFromLocalStorage('authRole') === 'admin'
+
+export const getCurrentUserId = () => getFromLocalStorage('userId')

@@ -37,6 +37,14 @@
     "close": "Close navigation",
     "logout": "Log out"
   },
+  "profile": {
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "phone": "Phone"
+    }
+  },
   "auth": {
     "fields": {
       "email": "Email",
