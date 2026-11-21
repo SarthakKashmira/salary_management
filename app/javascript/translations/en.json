@@ -74,7 +74,39 @@
     "employees": "Employees",
     "teamMembers": "Team members",
     "departments": "Departments",
-    "summary": "Summary"
+    "summary": "Summary",
+    "importData": "Import data"
+  },
+  "employeeImport": {
+    "title": "Import employees",
+    "instructions": {
+      "subtitle": "Upload a .csv or .xlsx file with one row per employee. The first row must contain these column headers:",
+      "requiredTitle": "Required columns",
+      "required": [
+        "first_name",
+        "last_name",
+        "email",
+        "employee_id",
+        "country - matched by name or code, e.g. India or IN",
+        "salary_currency - matched by currency code, e.g. INR",
+        "salary_amount"
+      ],
+      "optionalTitle": "Optional columns",
+      "optional": [
+        "designation",
+        "status - active or inactive, defaults to active",
+        "department - matched to an existing department by name, case-insensitive; if nothing matches, a new department is created with that name"
+      ],
+      "next": "Next"
+    },
+    "upload": {
+      "subtitle": "Choose the file from your computer to upload.",
+      "dragText": "Click or drag a .csv or .xlsx file to this area",
+      "back": "Back",
+      "submit": "Upload",
+      "selectFileError": "Choose a file first",
+      "success": "File received - employees will be imported in the background"
+    }
   },
   "employees": {
     "title": "Employees",

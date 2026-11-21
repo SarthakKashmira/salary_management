@@ -6,7 +6,7 @@ const snakeCaseKeys = (object) =>
 export const buildDepartmentPayload = (values) => ({
   department: snakeCaseKeys({
     name: values.name,
-    code: values.code,
+    code: values.code || null,
     description: values.description || null,
   }),
 })

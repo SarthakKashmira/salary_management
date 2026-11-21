@@ -46,7 +46,7 @@ export default function DepartmentForm() {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item {...fieldItemProps('code', t('departments.form.fields.code'))} required>
+            <Form.Item {...fieldItemProps('code', t('departments.form.fields.code'))}>
               <Input id="code" name="code" onBlur={handleBlur} onChange={handleChange} value={values.code} />
             </Form.Item>
           </Col>

@@ -5,6 +5,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   TeamOutlined,
+  UploadOutlined,
 } from '@ant-design/icons'
 import { Button, Drawer, Flex, Grid, Layout, Menu, theme, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
@@ -20,17 +21,20 @@ const { Sider } = Layout
 const { useBreakpoint } = Grid
 const { useToken } = theme
 
+const IMPORT_DATA_KEY = 'import-data'
+
 const NAV_ITEMS = [
   { key: routes.employees.index, labelKey: 'nav.employees', Icon: TeamOutlined },
   { key: routes.teamMembers.index, labelKey: 'nav.teamMembers', Icon: IdcardOutlined },
   { key: routes.departments.index, labelKey: 'nav.departments', Icon: ApartmentOutlined },
   { key: routes.summary.index, labelKey: 'nav.summary', Icon: DashboardOutlined },
+  { key: IMPORT_DATA_KEY, labelKey: 'nav.importData', Icon: UploadOutlined },
 ]
 
 const SIDEBAR_WIDTH = 240
 const SIDEBAR_COLLAPSED_WIDTH = 72
 
-export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onToggleCollapse }) {
+export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onOpenImport, onToggleCollapse }) {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
@@ -48,7 +52,12 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onTo
   }))
 
   const handleSelect = ({ key }) => {
-    navigate(key)
+    if (key === IMPORT_DATA_KEY) {
+      onOpenImport()
+    } else {
+      navigate(key)
+    }
+
     onCloseMobile()
   }
 

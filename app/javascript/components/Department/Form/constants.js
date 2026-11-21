@@ -8,6 +8,6 @@ export const INITIAL_VALUES = {
 
 export const VALIDATION_SCHEMA = Yup.object({
   name: Yup.string().trim().required('Name is required'),
-  code: Yup.string().trim().required('Code is required'),
+  code: Yup.string().trim(),
   description: Yup.string().trim(),
 })

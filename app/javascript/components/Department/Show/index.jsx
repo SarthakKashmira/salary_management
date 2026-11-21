@@ -55,7 +55,7 @@ export default function DepartmentShow() {
           <Form.Item {...fieldItemProps('name', t('departments.form.fields.name'))} required>
             <Input id="name" name="name" onBlur={handleBlur} onChange={handleChange} value={values.name} />
           </Form.Item>
-          <Form.Item {...fieldItemProps('code', t('departments.form.fields.code'))} required>
+          <Form.Item {...fieldItemProps('code', t('departments.form.fields.code'))}>
             <Input id="code" name="code" onBlur={handleBlur} onChange={handleChange} value={values.code} />
           </Form.Item>
           <Form.Item htmlFor="description" label={t('departments.form.fields.description')}>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       end
     end
     resources :users, only: [ :index, :show, :create, :update, :destroy ]
+    resources :employee_imports, only: :create
     resource :session, only: :create
     resource :registration, only: :create
     resources :countries, only: :index

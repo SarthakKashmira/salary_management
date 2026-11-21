@@ -2,7 +2,7 @@ class Department < ApplicationRecord
   has_many :employees
 
   validates :name, presence: true, uniqueness: true
-  validates :code, presence: true, uniqueness: true
+  validates :code, uniqueness: true, allow_nil: true
 
   before_destroy :ensure_no_employees_assigned
 

@@ -4,6 +4,8 @@ import { Button, Grid, Layout as AntLayout, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router-dom'
 
+import EmployeeImportModal from 'components/EmployeeImport'
+
 import Sidebar from './Sidebar'
 
 const { Content, Header } = AntLayout
@@ -14,6 +16,7 @@ export default function Layout() {
   const screens = useBreakpoint()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false)
 
   const isDesktop = Boolean(screens.lg)
 
@@ -23,6 +26,7 @@ export default function Layout() {
         isCollapsed={isCollapsed}
         isMobileOpen={isMobileOpen}
         onCloseMobile={() => setIsMobileOpen(false)}
+        onOpenImport={() => setIsImportModalOpen(true)}
         onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
       />
 
@@ -46,6 +50,8 @@ export default function Layout() {
           <Outlet />
         </Content>
       </AntLayout>
+
+      <EmployeeImportModal onClose={() => setIsImportModalOpen(false)} open={isImportModalOpen} />
     </AntLayout>
   )
 }
