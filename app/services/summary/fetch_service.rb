@@ -35,7 +35,11 @@ module Summary
       def exchange_rate_for(currency)
         return BigDecimal(1) if currency == target_currency
 
-        Money.from_amount(1, currency.code).exchange_to(target_currency.code).amount
+        rates = ExchangeRates.rates_to_usd
+        from_rate = rates[currency.code] or raise Money::Bank::UnknownRate, "No rate configured for #{currency.code}"
+        to_rate = rates[target_currency.code] or raise Money::Bank::UnknownRate, "No rate configured for #{target_currency.code}"
+
+        BigDecimal(from_rate.to_s) / BigDecimal(to_rate.to_s)
       end
 
       def money_amount(value)

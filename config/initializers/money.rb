@@ -1,9 +1,4 @@
-RATES_TO_USD = {
-  "USD" => 1.0,
-  "INR" => 0.012,
-  "EUR" => 1.08,
-  "GBP" => 1.27
-}.freeze
+RATES_TO_USD = YAML.load_file(Rails.root.join("config/exchange_rates.yml")).freeze
 
 bank = Money::Bank::VariableExchange.new
 

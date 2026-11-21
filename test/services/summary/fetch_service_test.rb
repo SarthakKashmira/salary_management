@@ -67,10 +67,7 @@ module Summary
 
       result = FetchService.new(currency_code: "USD").process
 
-      # The per-unit rate (0.012) is computed through a Money object and rounds
-      # to the nearest USD cent (0.01) before being applied, so 1000 INR -> $10,
-      # not the mathematically exact $12.
-      assert_in_delta 10.0, result[:total], 0.01
+      assert_in_delta 12.0, result[:total], 0.01
     end
 
     private
