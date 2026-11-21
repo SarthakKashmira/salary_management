@@ -1,6 +1,6 @@
 module Employees
   class ImportService
-    attr_reader :file_path
+    attr_reader :file_path, :import_id
 
     Result = Struct.new(:created_count, :failures, keyword_init: true)
     Failure = Struct.new(:row, :reason, keyword_init: true)
@@ -14,13 +14,20 @@ module Employees
       path.to_s
     end
 
-    def initialize(file_path:)
+    def initialize(file_path:, import_id:)
       @file_path = file_path
+      @import_id = import_id
     end
 
     def process
       sheet = Roo::Spreadsheet.open(file_path)
       headers = sheet.row(1).map { |header| header.to_s.strip.downcase }
+      ImportProgress.broadcast(import_id, percent: 25, stage: "headers_parsed", message: "Column headers parsed")
+
+      total_rows = sheet.last_row - 1
+      ImportProgress.broadcast(
+        import_id, percent: 50, stage: "rows_parsed", message: "#{total_rows} row(s) found - importing employees"
+      )
 
       created_count = 0
       failures = []

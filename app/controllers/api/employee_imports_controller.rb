@@ -11,9 +11,10 @@ module Api
         return render json: { errors: [ "Upload a .csv or .xlsx file" ] }, status: :unprocessable_entity
       end
 
-      EmployeeImportJob.perform_async(Employees::ImportService.persist_upload(file))
+      import_id = SecureRandom.uuid
+      EmployeeImportJob.perform_async(Employees::ImportService.persist_upload(file), import_id)
 
-      render_success(message: "File received - employees will be imported in the background")
+      render json: { message: "File received - employees will be imported in the background", importId: import_id }
     end
   end
 end

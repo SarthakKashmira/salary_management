@@ -78,3 +78,7 @@ gem "sidekiq", "~> 8.1"
 
 # Read employee import spreadsheets - handles both .xlsx and .csv [https://github.com/roo-rb/roo]
 gem "roo"
+
+# Action Cable's Redis adapter - lets broadcasts cross from the Sidekiq worker
+# process into the Puma process holding the browser's WebSocket connection.
+gem "redis"

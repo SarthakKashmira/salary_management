@@ -106,6 +106,14 @@
       "submit": "Upload",
       "selectFileError": "Choose a file first",
       "success": "File received - employees will be imported in the background"
+    },
+    "progress": {
+      "createdCount": "{{count}} employee imported",
+      "createdCount_other": "{{count}} employees imported",
+      "failedCount": "{{count}} row failed",
+      "failedCount_other": "{{count}} rows failed",
+      "failureRow": "Row {{row}}: {{reason}}",
+      "done": "Done"
     }
   },
   "employees": {

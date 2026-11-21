@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^6.3.4",
     "@bigbinary/neeto-datepicker": "^1.0.4",
+    "@rails/actioncable": "^8.1.401",
     "@tanstack/react-query": "^5.107.2",
     "antd": "^6.7.1",
     "axios": "^1.21.1",
