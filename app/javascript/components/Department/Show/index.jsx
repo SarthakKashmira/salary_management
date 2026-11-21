@@ -1,5 +1,5 @@
 import { ApartmentOutlined } from '@ant-design/icons'
-import { Avatar, Button, Card, Flex, Form, Input, Typography } from 'antd'
+import { Avatar, Button, Flex, Form, Input, Typography } from 'antd'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -42,7 +42,7 @@ export default function DepartmentShow() {
   if (isLoading) return <Spinner />
 
   return (
-    <div style={{ maxWidth: 640 }}>
+    <div>
       <Flex align="center" className="mb-6" gap="middle">
         <Avatar icon={<ApartmentOutlined />} size={64} style={{ backgroundColor: COLORS.green, flexShrink: 0 }} />
         <Typography.Title level={3} style={{ margin: 0 }}>
@@ -50,33 +50,31 @@ export default function DepartmentShow() {
         </Typography.Title>
       </Flex>
 
-      <Card>
-        <Form layout="vertical" onFinish={handleSubmit}>
-          <Form.Item {...fieldItemProps('name', t('departments.form.fields.name'))} required>
-            <Input id="name" name="name" onBlur={handleBlur} onChange={handleChange} value={values.name} />
-          </Form.Item>
-          <Form.Item {...fieldItemProps('code', t('departments.form.fields.code'))}>
-            <Input id="code" name="code" onBlur={handleBlur} onChange={handleChange} value={values.code} />
-          </Form.Item>
-          <Form.Item htmlFor="description" label={t('departments.form.fields.description')}>
-            <Input.TextArea
-              id="description"
-              name="description"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              rows={3}
-              value={values.description}
-            />
-          </Form.Item>
+      <Form layout="vertical" onFinish={handleSubmit}>
+        <Form.Item {...fieldItemProps('name', t('departments.form.fields.name'))} required>
+          <Input id="name" name="name" onBlur={handleBlur} onChange={handleChange} value={values.name} />
+        </Form.Item>
+        <Form.Item {...fieldItemProps('code', t('departments.form.fields.code'))}>
+          <Input id="code" name="code" onBlur={handleBlur} onChange={handleChange} value={values.code} />
+        </Form.Item>
+        <Form.Item htmlFor="description" label={t('departments.form.fields.description')}>
+          <Input.TextArea
+            id="description"
+            name="description"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            rows={3}
+            value={values.description}
+          />
+        </Form.Item>
 
-          <Flex gap="small" justify="end">
-            <Button onClick={() => navigate(routes.departments.index)}>{t('common.cancel')}</Button>
-            <Button htmlType="submit" loading={isPending} type="primary">
-              {t('common.save')}
-            </Button>
-          </Flex>
-        </Form>
-      </Card>
+        <Flex gap="small" justify="end">
+          <Button onClick={() => navigate(routes.departments.index)}>{t('common.cancel')}</Button>
+          <Button htmlType="submit" loading={isPending} type="primary">
+            {t('common.save')}
+          </Button>
+        </Flex>
+      </Form>
     </div>
   )
 }
