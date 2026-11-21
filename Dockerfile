@@ -29,11 +29,12 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
+# Named stage so the build stage can COPY --from it below - BuildKit doesn't
+# support ARG variable expansion directly inside a COPY --from value.
+FROM docker.io/library/node:$NODE_VERSION-slim AS node
+
 # Throw-away build stage to reduce size of final image
 FROM base AS build
-
-# Make sure NODE_VERSION matches the Node version in .node-version
-ARG NODE_VERSION=22.13.1
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
@@ -41,8 +42,8 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install Node.js and npm - needed to build the Vite-bundled React frontend during assets:precompile
-COPY --from=docker.io/library/node:${NODE_VERSION}-slim /usr/local/bin/node /usr/local/bin/node
-COPY --from=docker.io/library/node:${NODE_VERSION}-slim /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
     ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
