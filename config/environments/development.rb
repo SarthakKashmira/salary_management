@@ -26,9 +26,13 @@ Rails.application.configure do
   end
 
   # :memory_store is per-process, so it can't carry the employee importer's
-  # progress state from the Sidekiq worker process to the Puma process - use
-  # Redis (already running for Sidekiq/Action Cable) so both can see it.
-  config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL") }
+  # progress state from the Solid Queue worker process to the Puma process -
+  # use the DB-backed store (same as production) so both can see it.
+  config.cache_store = :solid_cache_store
+
+  # Replace the default in-process queuing backend for Active Job.
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

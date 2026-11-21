@@ -47,7 +47,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  # Load local environment variables (e.g. REDIS_URL) from .env [https://github.com/bkeepers/dotenv]
+  # Load local environment variables from .env [https://github.com/bkeepers/dotenv]
   gem "dotenv-rails"
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -74,11 +74,5 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "sidekiq", "~> 8.1"
-
 # Read employee import spreadsheets - handles both .xlsx and .csv [https://github.com/roo-rb/roo]
 gem "roo"
-
-# Action Cable's Redis adapter - lets broadcasts cross from the Sidekiq worker
-# process into the Puma process holding the browser's WebSocket connection.
-gem "redis"

@@ -12,7 +12,7 @@ module Api
       end
 
       import_id = SecureRandom.uuid
-      EmployeeImportJob.perform_async(Employees::ImportService.persist_upload(file), import_id)
+      EmployeeImportJob.perform_later(Employees::ImportService.persist_upload(file), import_id)
 
       render json: { message: "File received - employees will be imported in the background", importId: import_id }
     end

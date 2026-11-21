@@ -25,6 +25,9 @@ Rails.application.configure do
   # untestable (every read returns nil), so use a real, in-process store.
   config.cache_store = :memory_store
 
+  # Run jobs inline and in-memory instead of hitting the real Solid Queue tables.
+  config.active_job.queue_adapter = :test
+
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 

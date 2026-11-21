@@ -1,5 +1,5 @@
-class EmployeeImportJob
-  include Sidekiq::Job
+class EmployeeImportJob < ApplicationJob
+  queue_as :default
 
   def perform(file_path, import_id)
     Employees::ImportProgress.broadcast(import_id, percent: 10, stage: "uploaded", message: "File uploaded - starting import")

@@ -1,9 +1,13 @@
 # The async adapter only works within a single process, but the employee
-# import job broadcasts from a separate Sidekiq worker process - so
+# import job broadcasts from a separate Solid Queue worker process - so
 # development needs a cross-process adapter too, same as production does.
 development:
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") %>
+  adapter: solid_cable
+  connects_to:
+    database:
+      writing: cable
+  polling_interval: 0.1.seconds
+  message_retention: 1.day
 
 test:
   adapter: test
