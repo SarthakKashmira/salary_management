@@ -5,13 +5,6 @@ class EmployeeTest < ActiveSupport::TestCase
     @country = Country.create!(name: "India", code: "IN")
   end
 
-  def valid_attributes(**overrides)
-    {
-      employee_id: "EMP1", first_name: "Jane", email: "jane@example.com",
-      joining_date: Date.current, country: @country
-    }.merge(overrides)
-  end
-
   def test_valid_with_the_required_attributes
     employee = Employee.new(valid_attributes)
 
@@ -90,4 +83,13 @@ class EmployeeTest < ActiveSupport::TestCase
 
     assert_not Salary.exists?(salary.id)
   end
+
+  private
+
+    def valid_attributes(**overrides)
+      {
+        employee_id: "EMP1", first_name: "Jane", email: "jane@example.com",
+        joining_date: Date.current, country: @country
+      }.merge(overrides)
+    end
 end

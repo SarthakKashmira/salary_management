@@ -10,10 +10,6 @@ class SalaryTest < ActiveSupport::TestCase
     )
   end
 
-  def valid_attributes(**overrides)
-    { employee: @employee, currency: @currency, amount: 1000, effective_from: Date.current }.merge(overrides)
-  end
-
   def test_valid_with_the_required_attributes
     salary = Salary.new(valid_attributes)
 
@@ -55,4 +51,10 @@ class SalaryTest < ActiveSupport::TestCase
     assert_not salary.valid?
     assert_includes salary.errors[:employee_id], "has already been taken"
   end
+
+  private
+
+    def valid_attributes(**overrides)
+      { employee: @employee, currency: @currency, amount: 1000, effective_from: Date.current }.merge(overrides)
+    end
 end

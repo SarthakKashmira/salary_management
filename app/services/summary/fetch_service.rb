@@ -39,7 +39,7 @@ module Summary
       end
 
       def money_amount(value)
-        return nil if value.nil?
+        return nil if value.nil? || target_currency.nil?
 
         Money.from_amount(value, target_currency.code).to_f
       end
