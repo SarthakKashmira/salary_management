@@ -9,6 +9,8 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=4.0.5
+# Make sure NODE_VERSION matches the Node version in .node-version
+ARG NODE_VERSION=22.13.1
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -30,10 +32,19 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
+# Make sure NODE_VERSION matches the Node version in .node-version
+ARG NODE_VERSION=22.13.1
+
 # Install packages needed to build gems
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install Node.js and npm - needed to build the Vite-bundled React frontend during assets:precompile
+COPY --from=docker.io/library/node:${NODE_VERSION}-slim /usr/local/bin/node /usr/local/bin/node
+COPY --from=docker.io/library/node:${NODE_VERSION}-slim /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
+    ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 # Install application gems
 COPY vendor/* ./vendor/
