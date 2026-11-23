@@ -2,7 +2,7 @@ import { Avatar, Flex, Tag, Typography } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 
-import { AVATAR_COLORS, STATUS_STYLES } from 'common/theme'
+import { avatarColorFor, STATUS_STYLES } from 'common/theme'
 import Placeholder from 'components/common/Placeholder'
 import RowActionsDropdown from 'components/common/RowActionsDropdown'
 import routes from 'constants/routes'
@@ -15,7 +15,7 @@ export const fullNameOf = ({ firstName, lastName }) => [firstName, lastName].fil
 export const initialsOf = ({ firstName, lastName }) =>
   `${firstName.charAt(0)}${(lastName ?? '').charAt(0)}`.toUpperCase()
 
-export const avatarColorOf = ({ id }) => AVATAR_COLORS[id % AVATAR_COLORS.length]
+export const avatarColorOf = ({ id }) => avatarColorFor(id)
 
 export const formatAmount = (amount, symbol) => `${symbol}${Number(amount).toLocaleString()}`
 

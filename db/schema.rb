@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_23_044913) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_053534) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,14 +39,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_044913) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "countries", force: :cascade do |t|
+  create_table "countries", id: :string, force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "currencies", force: :cascade do |t|
+  create_table "currencies", id: :string, force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
     t.string "symbol", null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_044913) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "departments", force: :cascade do |t|
+  create_table "departments", id: :string, force: :cascade do |t|
     t.string "name", null: false
     t.string "code"
     t.text "description"
@@ -64,36 +64,36 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_044913) do
     t.index ["name"], name: "index_departments_on_name", unique: true
   end
 
-  create_table "employees", force: :cascade do |t|
+  create_table "employees", id: :string, force: :cascade do |t|
     t.string "employee_id", null: false
     t.string "first_name", null: false
     t.string "last_name"
     t.string "email", null: false
     t.string "phone"
     t.string "designation"
-    t.bigint "country_id", null: false
+    t.string "country_id", null: false
     t.date "joining_date", null: false
     t.string "status", default: "active", null: false
+    t.string "department_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "department_id"
     t.index ["country_id"], name: "index_employees_on_country_id"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["employee_id"], name: "index_employees_on_employee_id", unique: true
   end
 
-  create_table "salaries", force: :cascade do |t|
-    t.bigint "employee_id", null: false
+  create_table "salaries", id: :string, force: :cascade do |t|
+    t.string "employee_id", null: false
     t.decimal "amount", precision: 15, scale: 2, null: false
-    t.bigint "currency_id", null: false
+    t.string "currency_id", null: false
     t.date "effective_from", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_salaries_on_employee_id", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :string, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "email", null: false

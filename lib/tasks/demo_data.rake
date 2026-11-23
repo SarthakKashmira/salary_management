@@ -137,7 +137,6 @@ namespace :demo_data do
     puts "Seeding #{EMPLOYEE_COUNT} employees and their salaries..."
 
     existing_employee_count = Employee.where("employee_id LIKE 'EMP%'").count
-    starting_employee_id = (Employee.maximum(:id) || 0) + 1
     timestamp = Time.current
 
     (0...EMPLOYEE_COUNT).each_slice(EMPLOYEE_BATCH_SIZE) do |batch_indexes|
@@ -146,7 +145,7 @@ namespace :demo_data do
 
       batch_indexes.each do |index|
         sequence = existing_employee_count + index + 1
-        id = starting_employee_id + index
+        id = SecureRandom.uuid
         first_name = FIRST_NAMES.sample
         last_name = LAST_NAMES.sample
         country = countries.sample
@@ -171,6 +170,7 @@ namespace :demo_data do
         }
 
         salary_rows << {
+          id: SecureRandom.uuid,
           employee_id: id,
           amount: rand(300_00..2_500_00) / 100.0,
           currency_id: currency.id,

@@ -2,7 +2,7 @@ import { LogoutOutlined } from '@ant-design/icons'
 import { Avatar, Button, Card, Divider, Flex, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 
-import { AVATAR_COLORS, COLORS } from 'common/theme'
+import { avatarColorFor, COLORS } from 'common/theme'
 import { useShowUser } from 'hooks/user'
 import { getCurrentUserId } from 'utils/auth'
 
@@ -19,7 +19,7 @@ export default function Profile({ isCollapsed, onLogout }) {
   if (isLoading || !user) return null
 
   const fullName = [user.firstName, user.lastName].filter(Boolean).join(' ')
-  const avatarColor = AVATAR_COLORS[(Number(userId) || 0) % AVATAR_COLORS.length]
+  const avatarColor = avatarColorFor(userId)
 
   return (
     <Card size="small" style={{ borderColor: COLORS.green, margin: 8 }} styles={{ body: { padding: 12 } }}>

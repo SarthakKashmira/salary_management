@@ -15,6 +15,17 @@ export const COLORS = {
 
 export const AVATAR_COLORS = ['#1F7A53', '#0F6E6E', '#2A5DA8', '#6D4AA6', '#8A5A1E', '#A33A5B', '#44546A']
 
+export const avatarColorFor = (id) => {
+  const value = String(id)
+  let sum = value.length
+
+  for (let index = 0; index < value.length; index += 1) {
+    sum += value.charCodeAt(index)
+  }
+
+  return AVATAR_COLORS[sum % AVATAR_COLORS.length]
+}
+
 export const STATUS_STYLES = {
   active: { color: COLORS.green, background: COLORS.greenSoft, borderColor: COLORS.green },
   inactive: { color: COLORS.red, background: COLORS.redSoft, borderColor: COLORS.red },
