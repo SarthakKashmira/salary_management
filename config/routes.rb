@@ -8,23 +8,25 @@ Rails.application.routes.draw do
 
   # JSON API consumed by the React frontend.
   namespace :api, defaults: { format: :json } do
-    resources :employees, only: [ :index, :show, :create, :update, :destroy ] do
-      collection do
-        delete :bulk_destroy
+    namespace :v1 do
+      resources :employees, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          delete :bulk_destroy
+        end
       end
-    end
-    resources :departments, only: [ :index, :show, :create, :update, :destroy ] do
-      collection do
-        delete :bulk_destroy
+      resources :departments, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          delete :bulk_destroy
+        end
       end
+      resources :users, only: [ :index, :show, :create, :update, :destroy ]
+      resources :employee_imports, only: :create
+      resource :session, only: :create
+      resource :registration, only: :create
+      resources :countries, only: :index
+      resources :currencies, only: :index
+      resource :summary, only: :show, controller: "summary"
     end
-    resources :users, only: [ :index, :show, :create, :update, :destroy ]
-    resources :employee_imports, only: :create
-    resource :session, only: :create
-    resource :registration, only: :create
-    resources :countries, only: :index
-    resources :currencies, only: :index
-    resource :summary, only: :show, controller: "summary"
   end
 
   # React Router owns client-side routing; Rails just serves the SPA shell
