@@ -2,7 +2,9 @@ class EmployeeImportJob < ApplicationJob
   queue_as :default
 
   def perform(blob_signed_id, import_id)
-    Employees::ImportProgress.broadcast(import_id, percent: 10, stage: "uploaded", message: "File uploaded - starting import")
+    ProgressTracker.broadcast(
+      EmployeeImportChannel.topic_for(import_id), percent: 10, stage: "uploaded", message: "File uploaded - starting import"
+    )
 
     blob = ActiveStorage::Blob.find_signed!(blob_signed_id)
 
@@ -15,8 +17,8 @@ class EmployeeImportJob < ApplicationJob
     )
     result.failures.each { |failure| Rails.logger.info("[employee import] row #{failure.row}: #{failure.reason}") }
 
-    Employees::ImportProgress.broadcast(
-      import_id,
+    ProgressTracker.broadcast(
+      EmployeeImportChannel.topic_for(import_id),
       percent: 100,
       stage: "completed",
       message: "Import completed",

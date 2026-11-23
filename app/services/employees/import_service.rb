@@ -13,11 +13,14 @@ module Employees
     def process
       sheet = Roo::Spreadsheet.open(file_path)
       headers = sheet.row(1).map { |header| header.to_s.strip.downcase }
-      ImportProgress.broadcast(import_id, percent: 25, stage: "headers_parsed", message: "Column headers parsed")
+      ProgressTracker.broadcast(
+        EmployeeImportChannel.topic_for(import_id), percent: 25, stage: "headers_parsed", message: "Column headers parsed"
+      )
 
       total_rows = sheet.last_row - 1
-      ImportProgress.broadcast(
-        import_id, percent: 50, stage: "rows_parsed", message: "#{total_rows} row(s) found - importing employees"
+      ProgressTracker.broadcast(
+        EmployeeImportChannel.topic_for(import_id),
+        percent: 50, stage: "rows_parsed", message: "#{total_rows} row(s) found - importing employees"
       )
 
       created_count = 0

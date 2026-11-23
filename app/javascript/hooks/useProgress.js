@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react'
 
 import consumer from 'common/cable'
 
-const useEmployeeImportProgress = (importId) => {
+const useProgress = (channel, paramKey, paramValue) => {
   const [progress, setProgress] = useState(null)
 
   useEffect(() => {
-    if (!importId) return undefined
+    if (!paramValue) return undefined
 
     setProgress(null)
 
     const subscription = consumer.subscriptions.create(
-      { channel: 'EmployeeImportChannel', import_id: importId },
+      { channel, [paramKey]: paramValue },
       { received: (data) => setProgress(data) },
     )
 
     return () => subscription.unsubscribe()
-  }, [importId])
+  }, [paramValue])
 
   return progress
 }
 
-export default useEmployeeImportProgress
+export default useProgress

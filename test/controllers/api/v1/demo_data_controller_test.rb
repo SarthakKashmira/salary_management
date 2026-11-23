@@ -22,37 +22,27 @@ module Api
         assert_response :forbidden
       end
 
-      def test_seed_as_admin_populates_demo_data
-        with_env("DEMO_EMPLOYEE_COUNT" => "2") do
+      def test_seed_as_admin_enqueues_the_job
+        assert_enqueued_jobs 1, only: DemoDataJob do
           post api_v1_demo_data_seed_path, headers: auth_headers_for(@admin), as: :json
         end
 
         assert_response :success
-        assert_equal 10, Department.count
-        assert Employee.count >= 2
-        assert Currency.exists?(code: "USD")
+        job_args = enqueued_jobs.last[:args]
+        assert_equal "seed", job_args.first
+        assert_equal job_args.second, JSON.parse(response.body)["taskId"]
       end
 
-      def test_clear_as_admin_deletes_all_demo_data
-        Country.create!(name: "India", code: "IN")
-        Department.create!(name: "Engineering")
-
-        post api_v1_demo_data_clear_path, headers: auth_headers_for(@admin), as: :json
+      def test_clear_as_admin_enqueues_the_job
+        assert_enqueued_jobs 1, only: DemoDataJob do
+          post api_v1_demo_data_clear_path, headers: auth_headers_for(@admin), as: :json
+        end
 
         assert_response :success
-        assert_equal 0, Country.count
-        assert_equal 0, Department.count
+        job_args = enqueued_jobs.last[:args]
+        assert_equal "clear", job_args.first
+        assert_equal job_args.second, JSON.parse(response.body)["taskId"]
       end
-
-      private
-
-        def with_env(overrides)
-          original = overrides.keys.index_with { |key| ENV[key] }
-          overrides.each { |key, value| ENV[key] = value }
-          yield
-        ensure
-          original.each { |key, value| ENV[key] = value }
-        end
     end
   end
 end

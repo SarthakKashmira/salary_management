@@ -121,7 +121,7 @@ module Employees
         service_for(rows).process
       end
 
-      assert_equal 50, Employees::ImportProgress.latest(@import_id)[:percent]
+      assert_equal 50, ProgressTracker.latest(EmployeeImportChannel.topic_for(@import_id))[:percent]
     end
 
     def test_persist_upload_writes_the_uploaded_file_and_returns_its_path

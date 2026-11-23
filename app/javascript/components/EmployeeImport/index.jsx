@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
-import useEmployeeImportProgress from 'hooks/useEmployeeImportProgress'
 import useImportEmployees from 'hooks/useEmployeeImport'
+import useProgress from 'hooks/useProgress'
 
 const { Dragger } = Upload
 
@@ -22,7 +22,7 @@ export default function EmployeeImportModal({ onClose, open }) {
   const requiredColumns = t('employeeImport.instructions.required', { returnObjects: true })
   const optionalColumns = t('employeeImport.instructions.optional', { returnObjects: true })
 
-  const progress = useEmployeeImportProgress(importId)
+  const progress = useProgress('EmployeeImportChannel', 'import_id', importId)
 
   const { mutate: importEmployees, isPending } = useImportEmployees({
     onSuccess: ({ data }) => {

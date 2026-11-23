@@ -1,15 +1,12 @@
+import { useMutation } from '@tanstack/react-query'
+
 import demoDataApi from 'apis/demoData'
-import QUERY_KEYS from 'constants/queryKeys'
-import useMutationWithInvalidation from 'hooks/useMutationWithInvalidation'
 
-// Seeding/clearing touches every entity in the app, not just one - so every
-// query key gets invalidated, not a single one like other mutations do.
-const ALL_QUERY_KEYS = Object.values(QUERY_KEYS).map((key) => [key])
+// Seeding/clearing runs in a background job - a successful response here only means the job was
+// enqueued, not that it finished. Callers should track completion via
+// useProgress('DemoDataChannel', 'task_id', taskId) and invalidate queries then, not on this mutation's success.
+const useSeedDemoData = (options = {}) => useMutation({ mutationFn: demoDataApi.seedDemoData, ...options })
 
-const useSeedDemoData = (options = {}) =>
-  useMutationWithInvalidation(demoDataApi.seedDemoData, { keysToInvalidate: ALL_QUERY_KEYS, ...options })
-
-const useClearDemoData = (options = {}) =>
-  useMutationWithInvalidation(demoDataApi.clearDemoData, { keysToInvalidate: ALL_QUERY_KEYS, ...options })
+const useClearDemoData = (options = {}) => useMutation({ mutationFn: demoDataApi.clearDemoData, ...options })
 
 export { useSeedDemoData, useClearDemoData }

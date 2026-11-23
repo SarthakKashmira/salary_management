@@ -18,7 +18,7 @@ class EmployeeImportJobTest < ActiveJob::TestCase
 
     EmployeeImportJob.perform_now(path, @import_id)
 
-    progress = Employees::ImportProgress.latest(@import_id)
+    progress = ProgressTracker.latest(EmployeeImportChannel.topic_for(@import_id))
 
     assert_equal 100, progress[:percent]
     assert_equal 1, progress[:createdCount]

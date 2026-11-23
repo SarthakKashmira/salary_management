@@ -11,13 +11,11 @@ module Api
       before_action :require_admin!
 
       def seed
-        invoke_task("demo_data:seed")
-        render_success(message: "Demo data seeded")
+        enqueue("seed")
       end
 
       def clear
-        invoke_task("demo_data:clear")
-        render_success(message: "Demo data cleared")
+        enqueue("clear")
       end
 
       private
@@ -26,13 +24,11 @@ module Api
           render_forbidden unless current_user.admin?
         end
 
-        def invoke_task(name)
-          require "rake"
-          Rails.application.load_tasks unless Rake::Task.task_defined?(name)
+        def enqueue(action)
+          task_id = SecureRandom.uuid
+          DemoDataJob.perform_later(action, task_id)
 
-          task = Rake::Task[name]
-          task.reenable
-          task.invoke
+          render json: { message: "Demo data #{action} started", taskId: task_id }
         end
     end
   end

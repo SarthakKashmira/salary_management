@@ -9,7 +9,9 @@ class EmployeeImportChannelTest < ActionCable::Channel::TestCase
   end
 
   def test_transmits_the_cached_progress_immediately_so_a_late_subscriber_catches_up
-    Employees::ImportProgress.broadcast("abc-123", percent: 50, stage: "rows_parsed", message: "halfway there")
+    ProgressTracker.broadcast(
+      EmployeeImportChannel.topic_for("abc-123"), percent: 50, stage: "rows_parsed", message: "halfway there"
+    )
 
     subscribe import_id: "abc-123"
 
