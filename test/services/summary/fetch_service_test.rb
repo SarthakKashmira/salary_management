@@ -67,7 +67,8 @@ module Summary
 
       result = FetchService.new(currency_code: "USD").process
 
-      assert_in_delta 12.0, result[:total], 0.01
+      expected_total = 1000 * ExchangeRates::FALLBACK_RATES_TO_USD["INR"]
+      assert_in_delta expected_total, result[:total], 0.01
     end
 
     private
