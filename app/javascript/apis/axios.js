@@ -36,12 +36,19 @@ const handleSuccessResponse = (response) => {
 
 const AUTH_ENDPOINTS = [ '/session', '/registration' ]
 
+
+const isOwnStaleProfileLookup = (config) => {
+  const userId = getFromLocalStorage('userId')
+
+  return Boolean(userId) && config?.method === 'get' && config?.url === `/users/${userId}`
+}
+
 const handleErrorResponse = (axiosErrorObject) => {
   const { config, response } = axiosErrorObject
   const status = response?.status
   const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) => config?.url?.startsWith(endpoint))
 
-  if (status === 401 && !isAuthEndpoint) {
+  if ((status === 401 && !isAuthEndpoint) || (status === 404 && isOwnStaleProfileLookup(config))) {
     setToLocalStorage({ authToken: null, authEmail: null, authRole: null, userId: null })
     setTimeout(() => (window.location.href = '/login'), 2000)
   }
