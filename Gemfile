@@ -46,6 +46,10 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
+# Runs the web and Solid Queue worker processes together from one Procfile - needed on hosts
+# (like a single free Render web service) that only run one process/start command.
+gem "foreman", require: false
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
