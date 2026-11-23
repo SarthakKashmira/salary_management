@@ -1,6 +1,7 @@
 import {
   ApartmentOutlined,
   DashboardOutlined,
+  DatabaseOutlined,
   IdcardOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -13,7 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import logo from 'assets/A-logo.webp'
 import routes from 'constants/routes'
-import { clearSession } from 'utils/auth'
+import { clearSession, isAdmin } from 'utils/auth'
 
 import Profile from './Profile'
 
@@ -22,6 +23,7 @@ const { useBreakpoint } = Grid
 const { useToken } = theme
 
 const IMPORT_DATA_KEY = 'import-data'
+const SEED_DATA_KEY = 'seed-data'
 
 const NAV_ITEMS = [
   { key: routes.employees.index, labelKey: 'nav.employees', Icon: TeamOutlined },
@@ -31,10 +33,19 @@ const NAV_ITEMS = [
   { key: IMPORT_DATA_KEY, labelKey: 'nav.importData', Icon: UploadOutlined },
 ]
 
+const SEED_DATA_ITEM = { key: SEED_DATA_KEY, labelKey: 'nav.seedData', Icon: DatabaseOutlined }
+
 const SIDEBAR_WIDTH = 240
 const SIDEBAR_COLLAPSED_WIDTH = 72
 
-export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onOpenImport, onToggleCollapse }) {
+export default function Sidebar({
+  isCollapsed,
+  isMobileOpen,
+  onCloseMobile,
+  onOpenImport,
+  onOpenSeedData,
+  onToggleCollapse,
+}) {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
@@ -45,7 +56,9 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onOp
   // The root path renders the employee list, so it should light up that nav item.
   const selectedKey = location.pathname === routes.root ? routes.employees.index : location.pathname
 
-  const menuItems = NAV_ITEMS.map(({ key, labelKey, Icon }) => ({
+  const navItems = isAdmin() ? [...NAV_ITEMS, SEED_DATA_ITEM] : NAV_ITEMS
+
+  const menuItems = navItems.map(({ key, labelKey, Icon }) => ({
     key,
     icon: <Icon style={{ color: token.colorPrimary }} />,
     label: t(labelKey),
@@ -54,6 +67,8 @@ export default function Sidebar({ isCollapsed, isMobileOpen, onCloseMobile, onOp
   const handleSelect = ({ key }) => {
     if (key === IMPORT_DATA_KEY) {
       onOpenImport()
+    } else if (key === SEED_DATA_KEY) {
+      onOpenSeedData()
     } else {
       navigate(key)
     }

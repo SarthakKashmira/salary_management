@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router-dom'
 
 import EmployeeImportModal from 'components/EmployeeImport'
+import SeedDataModal from 'components/SeedData'
 
 import Sidebar from './Sidebar'
 
@@ -17,6 +18,7 @@ export default function Layout() {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isImportModalOpen, setIsImportModalOpen] = useState(false)
+  const [isSeedDataModalOpen, setIsSeedDataModalOpen] = useState(false)
 
   const isDesktop = Boolean(screens.lg)
 
@@ -27,6 +29,7 @@ export default function Layout() {
         isMobileOpen={isMobileOpen}
         onCloseMobile={() => setIsMobileOpen(false)}
         onOpenImport={() => setIsImportModalOpen(true)}
+        onOpenSeedData={() => setIsSeedDataModalOpen(true)}
         onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
       />
 
@@ -52,6 +55,7 @@ export default function Layout() {
       </AntLayout>
 
       <EmployeeImportModal onClose={() => setIsImportModalOpen(false)} open={isImportModalOpen} />
+      <SeedDataModal onClose={() => setIsSeedDataModalOpen(false)} open={isSeedDataModalOpen} />
     </AntLayout>
   )
 }
