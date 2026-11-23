@@ -75,7 +75,25 @@
     "teamMembers": "Team members",
     "departments": "Departments",
     "summary": "Summary",
-    "importData": "Import data"
+    "importData": "Import data",
+    "seedData": "Seed data"
+  },
+  "seedData": {
+    "title": "Seed data",
+    "description": "Populate or wipe the demo dataset used throughout this app - departments, countries, currencies, team members, and sample employees with salaries.",
+    "seed": {
+      "label": "Seed demo data",
+      "description": "Adds the full demo dataset. Safe to run more than once - existing departments, countries, currencies, and team members are matched and reused rather than duplicated.",
+      "success": "Demo data seeded successfully"
+    },
+    "clear": {
+      "label": "Clear all data",
+      "description": "Permanently deletes every employee, department, salary, country, currency, and team member account - including your own.",
+      "confirmTitle": "Clear all data?",
+      "confirmDescription": "This deletes everything, including your own team member account, and can't be undone. You'll be logged out immediately afterward.",
+      "confirmOk": "Yes, clear everything",
+      "success": "All data cleared"
+    }
   },
   "employeeImport": {
     "title": "Import employees",

@@ -1,4 +1,6 @@
 namespace :demo_data do
+  PERMANENT_ADMIN_EMAIL = "hrmanager@incubyte.com".freeze
+
   DEPARTMENT_NAMES = [
     "Engineering", "Sales", "Marketing", "Human Resources", "Finance",
     "Operations", "Legal", "Customer Support", "Product", "Design"
@@ -95,7 +97,7 @@ namespace :demo_data do
     "UX Designer", "Business Analyst", "Support Engineer", "Account Manager", "Legal Counsel"
   ].freeze
 
-  EMPLOYEE_COUNT = 10_000
+  EMPLOYEE_COUNT = ENV.fetch("DEMO_EMPLOYEE_COUNT", 10_000).to_i
   EMPLOYEE_BATCH_SIZE = 1000
 
   desc "Seed departments, team members, currencies, countries, and #{EMPLOYEE_COUNT} fake employees/salaries. " \
@@ -195,11 +197,16 @@ namespace :demo_data do
   task clear: :environment do
     ActiveRecord::Base.transaction do
       # Children before parents, so foreign key constraints never block a delete.
-      [ Salary, Employee, Department, Country, Currency, User ].each do |model|
+      [ Salary, Employee, Department, Country, Currency ].each do |model|
         count = model.count
         model.delete_all
         puts "Deleted #{count} #{model.name.underscore.pluralize}"
       end
+
+      users = User.where.not(email: PERMANENT_ADMIN_EMAIL)
+      count = users.count
+      users.delete_all
+      puts "Deleted #{count} users (kept #{PERMANENT_ADMIN_EMAIL})"
     end
 
     puts "Done. All demo data cleared."

@@ -26,6 +26,11 @@ Rails.application.routes.draw do
       resources :countries, only: :index
       resources :currencies, only: :index
       resource :summary, only: :show, controller: "summary"
+
+      namespace :demo_data do
+        post :seed
+        post :clear
+      end
     end
   end
 
