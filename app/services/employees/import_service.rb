@@ -5,15 +5,6 @@ module Employees
     Result = Struct.new(:created_count, :failures, keyword_init: true)
     Failure = Struct.new(:row, :reason, keyword_init: true)
 
-    def self.persist_upload(file)
-      directory = Rails.root.join("tmp", "imports")
-      FileUtils.mkdir_p(directory)
-
-      path = directory.join("#{SecureRandom.uuid}#{File.extname(file.original_filename)}")
-      File.binwrite(path, file.read)
-      path.to_s
-    end
-
     def initialize(file_path:, import_id:)
       @file_path = file_path
       @import_id = import_id

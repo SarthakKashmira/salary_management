@@ -11,8 +11,10 @@ module Api
         return render json: { errors: [ "Upload a .csv or .xlsx file" ] }, status: :unprocessable_entity
       end
 
+      blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename, content_type: file.content_type)
+
       import_id = SecureRandom.uuid
-      EmployeeImportJob.perform_later(Employees::ImportService.persist_upload(file), import_id)
+      EmployeeImportJob.perform_later(blob.signed_id, import_id)
 
       render json: { message: "File received - employees will be imported in the background", importId: import_id }
     end

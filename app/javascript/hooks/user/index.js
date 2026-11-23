@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import userApi from 'apis/user'
 import QUERY_KEYS from 'constants/queryKeys'
@@ -14,6 +14,7 @@ const useFetchUsers = (params = {}, options = {}) =>
 
       return data
     },
+    placeholderData: keepPreviousData,
     ...options,
   })
 

@@ -1,10 +1,14 @@
 class EmployeeImportJob < ApplicationJob
   queue_as :default
 
-  def perform(file_path, import_id)
+  def perform(blob_signed_id, import_id)
     Employees::ImportProgress.broadcast(import_id, percent: 10, stage: "uploaded", message: "File uploaded - starting import")
 
-    result = Employees::ImportService.new(file_path: file_path, import_id: import_id).process
+    blob = ActiveStorage::Blob.find_signed!(blob_signed_id)
+
+    result = blob.open do |file|
+      Employees::ImportService.new(file_path: file.path, import_id: import_id).process
+    end
 
     Rails.logger.info(
       "[employee import] #{result.created_count} employee(s) created, #{result.failures.size} row(s) failed"
@@ -20,6 +24,6 @@ class EmployeeImportJob < ApplicationJob
       failures: result.failures.map { |failure| { row: failure.row, reason: failure.reason } }
     )
   ensure
-    FileUtils.rm_f(file_path)
+    blob&.purge
   end
 end

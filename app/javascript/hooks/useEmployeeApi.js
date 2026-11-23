@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import employeeApi from 'apis/employee'
 import QUERY_KEYS from 'constants/queryKeys'
@@ -14,6 +14,7 @@ const useFetchEmployees = (params = {}, options = {}) =>
 
       return data
     },
+    placeholderData: keepPreviousData,
     ...options,
   })
 
