@@ -1,8 +1,13 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+# If booting the app - either directly via `bin/rails server`, or via the Procfile/foreman
+# (web + Solid Queue worker together, for hosts that only allow one start command) - create or
+# migrate the existing database. Skip this for one-off commands like `rails console`.
+if [[ "$*" == *"bin/rails server"* ]] || [[ "$*" == *"foreman"* ]]; then
   ./bin/rails db:prepare
+  # Runs on every boot, not just a fresh database - db/seeds.rb only checks/creates the one
+  # permanent admin account, so this is a cheap no-op once it already exists.
+  ./bin/rails db:seed
   ./bin/rails exchange_rates:refresh_fallback_file
 fi
 
