@@ -31,6 +31,14 @@ module Employees
       assert_equal [ employee ], FetchService.new(search_term: "engineer").process.to_a
     end
 
+    def test_orders_employees_by_employee_id
+      third = create_employee(employee_id: "EMP3", email: "third@example.com")
+      first = create_employee(employee_id: "EMP1", email: "first@example.com")
+      second = create_employee(employee_id: "EMP2", email: "second@example.com")
+
+      assert_equal [ first, second, third ], FetchService.new.process.to_a
+    end
+
     def test_returns_no_employees_when_nothing_matches
       create_employee
 

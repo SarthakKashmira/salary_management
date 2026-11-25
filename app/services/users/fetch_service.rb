@@ -10,7 +10,7 @@ module Users
 
     def process
       scope = search_term.present? ? User.where(search_clause, term: search_pattern) : User.all
-      scope.order(:first_name, :last_name)
+      scope.order(:email)
     end
 
     private

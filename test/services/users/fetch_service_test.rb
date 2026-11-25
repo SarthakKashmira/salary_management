@@ -2,9 +2,9 @@ require "test_helper"
 
 module Users
   class FetchServiceTest < ActiveSupport::TestCase
-    def test_returns_all_users_ordered_by_name_when_no_search_term_is_given
-      zebra = create_user(first_name: "Zebra", email: "zebra@example.com")
-      alpha = create_user(first_name: "Alpha", email: "alpha@example.com")
+    def test_returns_all_users_ordered_by_email_when_no_search_term_is_given
+      zebra = create_user(first_name: "Alpha", email: "zebra@example.com")
+      alpha = create_user(first_name: "Zebra", email: "alpha@example.com")
 
       result = FetchService.new.process
 

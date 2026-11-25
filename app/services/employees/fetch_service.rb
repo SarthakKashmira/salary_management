@@ -7,7 +7,6 @@ module Employees
       employees.email
       employees.phone
       employees.designation
-      departments.name
     ].freeze
 
     attr_reader :search_term
@@ -17,13 +16,19 @@ module Employees
     end
 
     def process
-      search_term.present? ? Employee.left_joins(:department).where(search_clause, term: search_pattern) : Employee.all
+      scope = search_term.present? ? Employee.where(search_clause, term: search_pattern, department_ids:) : Employee.all
+      scope.order(:employee_id)
     end
 
     private
 
       def search_clause
-        SEARCHABLE_COLUMNS.map { |column| "LOWER(#{column}) LIKE :term" }.join(" OR ")
+        (SEARCHABLE_COLUMNS.map { |column| "LOWER(#{column}) LIKE :term" } << "employees.department_id IN (:department_ids)")
+          .join(" OR ")
+      end
+
+      def department_ids
+        Department.where("LOWER(departments.name) LIKE ?", search_pattern).pluck(:id)
       end
 
       def search_pattern
