@@ -117,20 +117,19 @@ namespace :demo_data do
       end
     end
 
+    # insert_all skips callbacks, so ids are generated here. unique_by: :code turns each insert into
+    # ON CONFLICT DO NOTHING, so existing rows are kept even if two seeds run at the same time.
     puts "Seeding currencies..."
-    CURRENCY_DATA.each do |name, code, symbol|
-      Currency.find_or_create_by!(code: code) do |currency|
-        currency.name = name
-        currency.symbol = symbol
-      end
-    end
+    Currency.insert_all(
+      CURRENCY_DATA.map { |name, code, symbol| { id: SecureRandom.uuid, name: name, code: code, symbol: symbol } },
+      unique_by: :code
+    )
 
     puts "Seeding countries..."
-    COUNTRY_DATA.each do |name, code|
-      Country.find_or_create_by!(code: code) do |country|
-        country.name = name
-      end
-    end
+    Country.insert_all(
+      COUNTRY_DATA.map { |name, code| { id: SecureRandom.uuid, name: name, code: code } },
+      unique_by: :code
+    )
 
     departments = Department.all.to_a
     currencies = Currency.all.to_a
@@ -192,12 +191,12 @@ namespace :demo_data do
          "Countries: #{Country.count}, Employees: #{Employee.count}, Salaries: #{Salary.count}"
   end
 
-  desc "Delete all application data (employees, salaries, departments, currencies, countries, users). " \
-       "Run manually - never automatic on deploy."
+  desc "Delete all application data (employees, salaries, departments, users). Countries and currencies are " \
+       "reference data and are kept. Run manually - never automatic on deploy."
   task clear: :environment do
     ActiveRecord::Base.transaction do
       # Children before parents, so foreign key constraints never block a delete.
-      [ Salary, Employee, Department, Country, Currency ].each do |model|
+      [ Salary, Employee, Department ].each do |model|
         count = model.count
         model.delete_all
         puts "Deleted #{count} #{model.name.underscore.pluralize}"

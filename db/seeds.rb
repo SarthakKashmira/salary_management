@@ -5,7 +5,7 @@
 # Beyond the admin account below, this app seeds data manually instead, via two rake tasks (see
 # lib/tasks/demo_data.rake):
 #   bin/rails demo_data:seed  - seed departments, team members, currencies, countries, and demo employees/salaries
-#   bin/rails demo_data:clear - delete all of the above
+#   bin/rails demo_data:clear - delete all of the above except currencies and countries
 
 User.find_or_create_by!(email: "hrmanager@incubyte.com") do |user|
   user.first_name = "HR"

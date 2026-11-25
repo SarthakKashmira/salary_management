@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_23_053534) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_25_081740) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_053534) do
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_countries_on_code", unique: true
   end
 
   create_table "currencies", id: :string, force: :cascade do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_053534) do
     t.string "symbol", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_currencies_on_code", unique: true
   end
 
   create_table "departments", id: :string, force: :cascade do |t|

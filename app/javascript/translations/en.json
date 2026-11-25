@@ -88,9 +88,9 @@
     },
     "clear": {
       "label": "Clear all data",
-      "description": "Permanently deletes every employee, department, salary, country, currency, and team member account - including your own.",
+      "description": "Permanently deletes every employee, department, salary, and team member account - including your own. Countries and currencies are kept.",
       "confirmTitle": "Clear all data?",
-      "confirmDescription": "This deletes everything, including your own team member account, and can't be undone. You'll be logged out immediately afterward.",
+      "confirmDescription": "This deletes all employees, departments, salaries, and team member accounts, including your own, and can't be undone. Countries and currencies are kept. You'll be logged out immediately afterward.",
       "confirmOk": "Yes, clear everything",
       "success": "All data cleared"
     }
