@@ -6,7 +6,7 @@ const snakeCaseKeys = (object) =>
 export const buildUserPayload = (values) => ({
   user: snakeCaseKeys({
     firstName: values.firstName,
-    lastName: values.lastName,
+    lastName: values.lastName || null,
     email: values.email,
     phone: values.phone,
     role: values.role,
@@ -16,7 +16,7 @@ export const buildUserPayload = (values) => ({
 export const buildUserUpdatePayload = (values) => ({
   user: snakeCaseKeys({
     firstName: values.firstName,
-    lastName: values.lastName,
+    lastName: values.lastName || null,
     phone: values.phone,
     role: values.role,
   }),
@@ -24,7 +24,7 @@ export const buildUserUpdatePayload = (values) => ({
 
 export const buildInitialValuesFromUser = (user) => ({
   firstName: user.firstName,
-  lastName: user.lastName,
+  lastName: user.lastName ?? '',
   email: user.email,
   phone: user.phone ?? '',
   role: user.role,

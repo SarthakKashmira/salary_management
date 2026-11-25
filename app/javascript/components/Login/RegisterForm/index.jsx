@@ -49,7 +49,7 @@ export default function RegisterForm({ invitedEmail }) {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item {...fieldItemProps('lastName', t('auth.fields.lastName'), 'registerLastName')} required>
+          <Form.Item {...fieldItemProps('lastName', t('auth.fields.lastName'), 'registerLastName')}>
             <Input
               id="registerLastName"
               name="lastName"

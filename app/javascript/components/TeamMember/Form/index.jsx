@@ -69,7 +69,7 @@ export default function TeamMemberForm() {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item {...fieldItemProps('lastName', t('teamMembers.form.fields.lastName'))} required>
+            <Form.Item {...fieldItemProps('lastName', t('teamMembers.form.fields.lastName'))}>
               <Input id="lastName" name="lastName" onBlur={handleBlur} onChange={handleChange} value={values.lastName} />
             </Form.Item>
           </Col>

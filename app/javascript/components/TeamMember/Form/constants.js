@@ -10,7 +10,7 @@ export const INITIAL_VALUES = {
 
 export const VALIDATION_SCHEMA = Yup.object({
   firstName: Yup.string().trim().required('First name is required'),
-  lastName: Yup.string().trim().required('Last name is required'),
+  lastName: Yup.string().trim(),
   email: Yup.string().trim().email('Enter a valid email address').required('Email is required'),
   phone: Yup.string().trim(),
   role: Yup.string().required('Role is required'),

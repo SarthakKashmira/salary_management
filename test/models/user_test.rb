@@ -14,11 +14,10 @@ class UserTest < ActiveSupport::TestCase
     assert_includes user.errors[:first_name], "can't be blank"
   end
 
-  def test_invalid_without_a_last_name
+  def test_valid_without_a_last_name
     user = User.new(valid_attributes(last_name: nil))
 
-    assert_not user.valid?
-    assert_includes user.errors[:last_name], "can't be blank"
+    assert user.valid?
   end
 
   def test_invalid_without_an_email

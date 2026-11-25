@@ -5,7 +5,6 @@ class User < ApplicationRecord
   enum :status, { active: 0, inactive: 1, invited: 2 }, default: :active
 
   validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :role, presence: true
   validate :password_presence, unless: :invited?

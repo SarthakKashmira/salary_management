@@ -7,7 +7,7 @@ export const buildRegistrationPayload = (values) => ({
   user: snakeCaseKeys({
     email: values.email,
     firstName: values.firstName,
-    lastName: values.lastName,
+    lastName: values.lastName || null,
     password: values.password,
     phone: values.phone || null,
   }),
