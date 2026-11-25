@@ -61,6 +61,9 @@ production:
   queue:
     <<: *postgres
     url: <%= neon_url.("production_queue") %>
+    # Solid Queue runs inside Puma (config/puma.rb), so its dispatcher, worker, scheduler, and
+    # heartbeat threads share this pool with Puma's request threads enqueueing jobs.
+    max_connections: 10
     migrations_paths: db/queue_migrate
   cable:
     <<: *postgres

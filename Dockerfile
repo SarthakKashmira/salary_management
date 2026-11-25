@@ -84,5 +84,8 @@ COPY --chown=rails:rails --from=build /rails /rails
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
+# Solid Queue runs inside Puma (see config/puma.rb), so one process serves requests and runs jobs.
+ENV SOLID_QUEUE_IN_PUMA="true"
+
 EXPOSE 3000
-CMD ["bundle", "exec", "foreman", "start", "-f", "Procfile"]
+CMD ["./bin/rails", "server"]

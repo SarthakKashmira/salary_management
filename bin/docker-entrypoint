@@ -1,9 +1,8 @@
 #!/bin/bash -e
 
-# If booting the app - either directly via `bin/rails server`, or via the Procfile/foreman
-# (web + Solid Queue worker together, for hosts that only allow one start command) - create or
-# migrate the existing database. Skip this for one-off commands like `rails console`.
-if [[ "$*" == *"bin/rails server"* ]] || [[ "$*" == *"foreman"* ]]; then
+# If booting the app via `bin/rails server`, create or migrate the existing database. Skip this for
+# one-off commands like `rails console`.
+if [[ "$*" == *"bin/rails server"* ]]; then
   DATABASE_URL="${DATABASE_URL_UNPOOLED:-$DATABASE_URL}" ./bin/rails db:prepare
   # Runs on every boot, not just a fresh database - db/seeds.rb only checks/creates the one
   # permanent admin account, so this is a cheap no-op once it already exists.

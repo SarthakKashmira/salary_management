@@ -14,5 +14,10 @@ development:
 test:
   <<: *default
 
+# One job at a time, so a demo data seed and an employee import never hold their memory at once.
 production:
   <<: *default
+  workers:
+    - queues: "*"
+      threads: 1
+      polling_interval: 1
